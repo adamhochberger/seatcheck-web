@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import MainPage from './mainPage'
 /*
 ReactDOM.render(
   <h1>Hello, world!</h1>,
