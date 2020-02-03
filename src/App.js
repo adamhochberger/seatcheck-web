@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <img src={logo2} alt="logo" />
         <p>
-          Welcome to Seat Check.
+          Welcome to Seat Check__.
         </p>
         <a
           className="App-link"
