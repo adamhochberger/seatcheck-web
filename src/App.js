@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import logo2 from './logo.png';
 import User from './username.js'
 import NameForm from './NameForm.js'
 
@@ -52,4 +50,4 @@ class MainPage extends React.Component {
     }
 }
 
-export default MainPage;
+export default App;
