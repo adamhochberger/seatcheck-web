@@ -1,8 +1,8 @@
 import React from 'react';
 import User from './username.js'
 import NameForm from './NameForm.js'
-
-class MainPage extends React.Component {
+import MainPage from './mainPage.js';
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: '', toggle:true};

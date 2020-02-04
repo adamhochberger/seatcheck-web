@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import logo2 from './logo.png';
+import './index.css';
+
 class MainPage extends React.Component {
       render() {
       
