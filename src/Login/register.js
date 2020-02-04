@@ -25,6 +25,20 @@ class NameForm extends React.Component {
               Name:
               <input type="text" value={this.state.value} onChange={this.handleChange} />
             </label>
+            <label>
+              Email:
+              <input type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            
+            <label>
+              Password:
+              <input type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            
+            <label>
+              Confirm password:
+              <input type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
             <input type="submit" value="Submit" />
           </form>
         );

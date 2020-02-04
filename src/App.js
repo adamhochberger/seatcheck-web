@@ -1,6 +1,6 @@
 import React from 'react';
 import User from './username.js'
-import NameForm from './NameForm.js'
+import NameForm from './Login/register.js'
 import MainPage from './mainPage.js';
 class App extends React.Component {
     constructor(props) {
@@ -30,7 +30,6 @@ class App extends React.Component {
             return (
               <div className="App">
                <header className="App-header">
-                 <User></User>
                  <NameForm></NameForm>
                </header>
              </div>
@@ -40,7 +39,20 @@ class App extends React.Component {
           return (
             <div className="App">
               <header className="App-header">
-                <MainPage></MainPage>
+                <div>
+                  <MainPage></MainPage>
+
+                </div>
+                <p>More informations</p>
+                  <a
+                  className="App-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick ={this.handleClick}
+                >
+                  Login Page
+                </a>
+              
   {/*              <User></User>
                 <NameForm></NameForm> */}
               </header>

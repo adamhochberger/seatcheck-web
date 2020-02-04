@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.js';
-import MainPage from './mainPage.js';
 import * as serviceWorker from './serviceWorker';
 /*
 ReactDOM.render(
@@ -11,7 +10,7 @@ ReactDOM.render(
 );
 */
 
-ReactDOM.render(<MainPage/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 
 
 
