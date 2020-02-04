@@ -1,6 +1,6 @@
 import React from 'react';
-import User from './username.js'
-import NameForm from './NameForm.js'
+import User from './username.js';
+import NameForm from './Login/NameForm.js';
 import MainPage from './mainPage.js';
 class App extends React.Component {
     constructor(props) {

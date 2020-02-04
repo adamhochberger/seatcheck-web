@@ -11,7 +11,7 @@ ReactDOM.render(
 );
 */
 
-ReactDOM.render(<MainPage/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 
 
 
