@@ -14,14 +14,7 @@ class MainPage extends React.Component {
                 Welcome to Social Compass.
               </p>
               
-              <a
-                className="App-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Login Page
-              </a>
-              
+
               <a
                 className="App-link"
                 href="login.js"
