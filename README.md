@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm install --save firebase`
+### `npm install firebase`
 
 Install all required packages for firebase
 
