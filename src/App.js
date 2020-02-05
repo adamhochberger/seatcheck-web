@@ -1,7 +1,8 @@
 import React from 'react';
-import User from './username.js'
-import NameForm from './Login/register.js'
+import User from './username.js';
+import NameForm from './Login/register.js';
 import MainPage from './mainPage.js';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -43,14 +44,14 @@ class App extends React.Component {
                   <MainPage></MainPage>
 
                 </div>
-                <p>More informations</p>
+                <p>More information</p>
                   <a
                   className="App-link"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick ={this.handleClick}
                 >
-                  Login Page
+                  Create an Account
                 </a>
               
   {/*              <User></User>

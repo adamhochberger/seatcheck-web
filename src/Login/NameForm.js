@@ -11,6 +11,7 @@ class NameForm extends React.Component {
     
       handleChange(event) {
         this.setState({value: event.target.value});
+        console.log(event.target.value);
       }
     
       handleSubmit(event) {
@@ -20,13 +21,13 @@ class NameForm extends React.Component {
 
       render() {
         return (
-          <form onSubmit={this.handleSubmit}>
+          /*<form onSubmit={this.handleSubmit}>
             <label>
-              Name:
+              Name
               <input type="text" value={this.state.value} onChange={this.handleChange} />
             </label>
             <input type="submit" value="Submit" />
-          </form>
+          </form>*/
         );
       }
 

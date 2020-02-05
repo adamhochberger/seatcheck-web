@@ -1,4 +1,6 @@
 import React from 'react';
+import firebase from '../firebase.js';
+import auth from '../firebase.js';
 
 class NameForm extends React.Component {
     constructor(props) {
@@ -16,35 +18,45 @@ class NameForm extends React.Component {
     
       handleChange(event) {
           this.setState({ [event.target.name]: event.target.value });
-          console.log(event.target.value);
+          //console.log(event.target.value);
       }
     
       handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        //alert('A name was submitted: ' + this.state.value);
+        console.log("before");
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
+            console.log(error.code);
+            console.log(error.message);
+        });
         event.preventDefault();
+        console.log("after");
       }
 
       render() {
-        return (
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Name:
-              <input type="text" name="name" value={this.state.value} onChange={this.handleChange} value={this.state.name}/>
-            </label>
-            <label>
-              Email:
-              <input type="text" name="email" value={this.state.value} onChange={this.handleChange} value={this.state.email}/>
-            </label>
-            <label>
-              Password:
-              <input type="password" name="password" value={this.state.value} onChange={this.handleChange} value={this.state.password}/>
-            </label>
-            <label>
-              Confirm password:
-              <input type="password" name="confirmPass" value={this.state.value} onChange={this.handleChange} value={this.state.confirmPass} />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
+          return (
+            <div className='container'>
+                <section className='create-account'>
+                  <form onSubmit={this.handleSubmit}>
+                    <label>
+                      Name:
+                      <input type="text" name="name" value={this.state.value} onChange={this.handleChange} value={this.state.name} />        
+                    </label>
+                    <label>
+                      Email:
+                      <input type="text" name="email" value={this.state.value} onChange={this.handleChange} value={this.state.email} />        
+                    </label>
+                    <label>
+                      Password:
+                      <input type="password" name="password" value={this.state.value} onChange={this.handleChange} value={this.state.password}/>
+                    </label>
+                    <label>
+                      Confirm password:
+                      <input type="password" name="confirmPass" value={this.state.value} onChange={this.handleChange} value={this.state.confirmPass} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                  </form>
+                </section>
+            </div>      
         );
       }
 
