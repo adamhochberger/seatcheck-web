@@ -13,6 +13,9 @@ In the project directory, you can run:
 
 Install all required packages for firebase
 
+### npm install --save material-ui axios react-tap-event-plugin
+packages for styling
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
