@@ -3,14 +3,20 @@ import React from 'react';
 class NameForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+            name: '',
+            email: '',
+            password: '',
+            confirmPass: ''
+        };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
       handleChange(event) {
-        this.setState({value: event.target.value});
+          this.setState({ [event.target.name]: event.target.value });
+          console.log(event.target.value);
       }
     
       handleSubmit(event) {
@@ -23,21 +29,19 @@ class NameForm extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <label>
               Name:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="text" name="name" value={this.state.value} onChange={this.handleChange} value={this.state.name}/>
             </label>
             <label>
               Email:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="text" name="email" value={this.state.value} onChange={this.handleChange} value={this.state.email}/>
             </label>
-            
             <label>
               Password:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="password" name="password" value={this.state.value} onChange={this.handleChange} value={this.state.password}/>
             </label>
-            
             <label>
               Confirm password:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="password" name="confirmPass" value={this.state.value} onChange={this.handleChange} value={this.state.confirmPass} />
             </label>
             <input type="submit" value="Submit" />
           </form>
