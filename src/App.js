@@ -2,6 +2,7 @@ import React from 'react';
 import User from './username.js';
 import NameForm from './Login/register.js';
 import MainPage from './mainPage.js';
+import Login from './Login/login.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -41,6 +42,7 @@ class App extends React.Component {
             <div className="App">
               <header className="App-header">
                 <div>
+                  <Login></Login>  
                   <MainPage></MainPage>
 
                 </div>

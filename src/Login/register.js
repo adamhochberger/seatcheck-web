@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../firebase.js';
-import auth from '../firebase.js';
+
 
 class NameForm extends React.Component {
     constructor(props) {
@@ -18,18 +18,15 @@ class NameForm extends React.Component {
     
       handleChange(event) {
           this.setState({ [event.target.name]: event.target.value });
-          //console.log(event.target.value);
       }
     
       handleSubmit(event) {
-        //alert('A name was submitted: ' + this.state.value);
-        console.log("before");
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
             console.log(error.code);
             console.log(error.message);
         });
         event.preventDefault();
-        console.log("after");
+        
       }
 
       render() {
