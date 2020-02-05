@@ -24,7 +24,7 @@ class NameForm extends React.Component {
       handleSubmit(event) {
         //alert('A name was submitted: ' + this.state.value);
         console.log("before");
-        auth.createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
             console.log(error.code);
             console.log(error.message);
         });
