@@ -13,7 +13,14 @@ class MainPage extends React.Component {
               <p>
                 Welcome to Social Compass.
               </p>
-              
+              <a
+                  className="App-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick ={this.loginSwitch}
+                  >
+                  Login Page
+                </a>     
 
               <a
                 className="App-link"

@@ -2,12 +2,21 @@ import React from 'react';
 import User from './username.js'
 import NameForm from './Login/register.js'
 import MainPage from './mainPage.js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', toggle:true};
+        this.state = {value: 'login', toggle:true};
         this.handleClick = this.handleClick.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.loginSwitch = this.loginSwitch.bind(this);
+        this.viewMapSwitch = this.viewMapSwitch.bind(this);
+        this.buildMapSwitch = this.buildMapSwitch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       handleChange(event) {
@@ -20,13 +29,28 @@ class App extends React.Component {
       }
       handleClick(){
           this.setState(state => ({
-            toggle: !state.toggle
+            value: 'value'
           }));
       }
+      loginSwitch(){
+        this.setState(state => ({
+          value: 'loginPage'
+        }));
+      }
+      viewMapSwitch(){
+        this.setState(state => ({
+          value: 'viewMapPage'
+        }));
+      }
+      buildMapSwitch(){
+        this.setState(state => ({
+          value: 'buildMapPage'
+        }));
+      }
       render() {
-          const t = this.state.toggle
-          if (t == false){
-            console.log("runs")
+          const selection = this.state.value
+          console.log(selection);
+          if (selection == 'loginPage'){
             return (
               <div className="App">
                <header className="App-header">
@@ -35,28 +59,41 @@ class App extends React.Component {
              </div>
            );
          }
+         if (selection == 'buildMapPage'){
+          return (
+            <div className="App">
+             <header className="App-header">
+               <NameForm></NameForm>
+             </header>
+           </div>
+         );
+       }
          else{
           return (
+            <Router>
             <div className="App">
               <header className="App-header">
                 <div>
-                  <MainPage></MainPage>
+                  <Switch>
+                    <Route path= "/mainPage">
+                      <MainPage></MainPage>
+                    </Route>
+                    <Route path= "/register">
+                      <NameForm></NameForm>
+                    </Route>
+                  </Switch>
 
                 </div>
-                <p>More informations</p>
-                  <a
-                  className="App-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick ={this.handleClick}
-                >
-                  Login Page
-                </a>
+
+                  <Link to='/mainPage'>Main Page</Link>
+                  <Link to='/register'>Register Here</Link>
+
               
   {/*              <User></User>
                 <NameForm></NameForm> */}
               </header>
             </div>
+          </Router>
           );
         }
     }
