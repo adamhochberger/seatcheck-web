@@ -48,54 +48,24 @@ class App extends React.Component {
         }));
       }
       render() {
-          const selection = this.state.value
-          console.log(selection);
-          if (selection == 'loginPage'){
-            return (
-              <div className="App">
-               <header className="App-header">
-                 <NameForm></NameForm>
-               </header>
-             </div>
-           );
-         }
-         if (selection == 'buildMapPage'){
           return (
             <div className="App">
-             <header className="App-header">
-               <NameForm></NameForm>
-             </header>
-           </div>
-         );
-       }
-         else{
-          return (
-            <Router>
-            <div className="App">
+              <Router>
               <header className="App-header">
                 <div>
                   <Switch>
-                    <Route path= "/mainPage">
+                  <Route path= "/">
                       <MainPage></MainPage>
                     </Route>
-                    <Route path= "/register">
-                      <NameForm></NameForm>
-                    </Route>
                   </Switch>
-
                 </div>
 
                   <Link to='/mainPage'>Main Page</Link>
                   <Link to='/register'>Register Here</Link>
-
-              
-  {/*              <User></User>
-                <NameForm></NameForm> */}
               </header>
+              </Router>
             </div>
-          </Router>
           );
-        }
     }
 }
 
