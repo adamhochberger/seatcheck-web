@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from '../firebase.js';
 
 
-class NameForm extends React.Component {
+class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,4 +59,4 @@ class NameForm extends React.Component {
 
 }
 
-export default NameForm;
+export default RegisterForm;
