@@ -54,6 +54,7 @@ class App extends React.Component {
               <Router>
               <header className="App-header">
                 <div>
+
                   <Switch>
                     <Route exact path= "/">
                     {console.log("Home")} 
@@ -69,7 +70,6 @@ class App extends React.Component {
                     </Route>
                   </Switch>
                 </div>
-
                   <Link to='/mainPage'>Main Page</Link>
                   <Link to='/register'>Register Here</Link>
                   <Link to='/build'> Build Map</Link>
