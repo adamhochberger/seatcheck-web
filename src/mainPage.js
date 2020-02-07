@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import logo2 from './logo.png';
 import './index.css';
 import NameForm from './Login/register.js'
+import Login from './Login/login.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,7 @@ class MainPage extends React.Component {
                 Welcome to Social Compass.
               </p>
               </header>
+              <Login></Login>
             </div>
           </Router>
         );
