@@ -1,6 +1,7 @@
 import React from 'react';
 import User from './username.js'
-import NameForm from './Login/register.js'
+import RegisterForm from './Login/register.js';
+import BuildMapView from './MapBuild/buildmap.js';
 import MainPage from './mainPage.js';
 import {
   BrowserRouter as Router,
@@ -54,14 +55,24 @@ class App extends React.Component {
               <header className="App-header">
                 <div>
                   <Switch>
-                  <Route path= "/">
+                    <Route exact path= "/">
+                    {console.log("Home")} 
+
                       <MainPage></MainPage>
+                    </Route>
+                    <Route path= "/register">
+                      {console.log("RegisterPage")} 
+                      <RegisterForm></RegisterForm>
+                    </Route>
+                    <Route path= "/build">
+                      <BuildMapView></BuildMapView>
                     </Route>
                   </Switch>
                 </div>
 
                   <Link to='/mainPage'>Main Page</Link>
                   <Link to='/register'>Register Here</Link>
+                  <Link to='/build'> Build Map</Link>
               </header>
               </Router>
             </div>

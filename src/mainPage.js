@@ -14,25 +14,13 @@ class MainPage extends React.Component {
       
         return (
           <Router>
-                <Switch>
-                    <Route path= "/mainPage">
-                      <MainPage></MainPage>
-                    </Route>
-                    <Route path= "/register">
-                      <NameForm></NameForm>
-                    </Route>
-                </Switch>
+
             <div className="App">
             <header className="App-header">
               <img src={logo2} alt="logo" />
               <p>
                 Welcome to Social Compass.
               </p>
-              
-              <Link to='/mainPage'>Main Page</Link>
-              <Link to='/register'>Register Here</Link>
-              <Link to='/register'>Create a floor plan</Link>
-              <Link to='/register'>View a floor plan</Link>
               </header>
             </div>
           </Router>
