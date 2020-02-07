@@ -1,6 +1,6 @@
 import React from 'react';
 
-class NameForm extends React.Component {
+class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: ''};
@@ -46,4 +46,4 @@ class NameForm extends React.Component {
 
 }
 
-export default NameForm;
+export default RegisterForm;
