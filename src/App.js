@@ -1,10 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import User from './username.js';
-import NameForm from './Login/register.js';
-import MainPage from './mainPage.js';
-import Login from './Login/login.js';
-=======
 import User from './username.js'
 import RegisterForm from './Login/register.js';
 import BuildMapView from './MapBuild/buildmap.js';
@@ -15,7 +9,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
->>>>>>> master
 
 class App extends React.Component {
     constructor(props) {
@@ -61,14 +54,10 @@ class App extends React.Component {
               <Router>
               <header className="App-header">
                 <div>
-<<<<<<< HEAD
-                  <Login></Login>  
-                  <MainPage></MainPage>
-=======
+
                   <Switch>
                     <Route exact path= "/">
                     {console.log("Home")} 
->>>>>>> master
 
                       <MainPage></MainPage>
                     </Route>
@@ -81,25 +70,9 @@ class App extends React.Component {
                     </Route>
                   </Switch>
                 </div>
-<<<<<<< HEAD
-                <p>More information</p>
-                  <a
-                  className="App-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick ={this.handleClick}
-                >
-                  Create an Account
-                </a>
-              
-  {/*              <User></User>
-                <NameForm></NameForm> */}
-=======
-
                   <Link to='/mainPage'>Main Page</Link>
                   <Link to='/register'>Register Here</Link>
                   <Link to='/build'> Build Map</Link>
->>>>>>> master
               </header>
               </Router>
             </div>
