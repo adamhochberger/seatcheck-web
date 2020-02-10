@@ -3,7 +3,8 @@ import React from 'react';
 class buildMapView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {grid:new Array(40).fill("X")};
+        this.state = {grid:new Array(40).fill(["X"])};
+        
         this.handleChange = this.handleChange.bind(this);
         this.uploadMap = this.uploadMap.bind(this);
       }
@@ -16,17 +17,31 @@ class buildMapView extends React.Component {
         event.preventDefault();
       }
       
-      render() {
+      render() {  
+
         return (
-            <div>
+          <div>
+          {console.log(this.state.grid)}
+            {console.log("hello")}
           <form onSubmit={this.uploadMap}>
             <label>
-              Submit my map:
+              Select Areas to encode:
             </label>
           </form>
+          {/*}
             <ol>
               {this.state.grid.map(obj => <li>{obj}</li>)}
             </ol>
+        */}
+                  <table>
+        {
+          this.state.grid.map((row, index) => (
+            <tr key={row[0]}>
+              {this.state.grid.map(cellId => <th key={cellId}>{cellId}</th>)}
+            </tr>
+          ))
+        }
+      </table>
           </div>   
           );
         }
@@ -34,7 +49,7 @@ class buildMapView extends React.Component {
       }
       function buildMap_(props){
         //grid = [];
-
+        // Loop to create 2D array using 1D array 
       }
       
 export default buildMapView;
