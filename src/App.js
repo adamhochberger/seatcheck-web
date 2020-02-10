@@ -57,12 +57,9 @@ class App extends React.Component {
 
                   <Switch>
                     <Route exact path= "/">
-                    {console.log("Home")} 
-
                       <MainPage></MainPage>
                     </Route>
                     <Route path= "/register">
-                      {console.log("RegisterPage")} 
                       <RegisterForm></RegisterForm>
                     </Route>
                     <Route path= "/build">
