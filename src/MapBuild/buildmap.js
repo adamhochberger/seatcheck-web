@@ -3,17 +3,46 @@ import React from 'react';
 class buildMapView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {grid:new Array(10).fill(["O"]), curr:'d'};
+        this.state = {grid:[], curr:'X'};
         this.setPoint = this.setPoint.bind(this);        
         this.handleChange = this.handleChange.bind(this);
         this.uploadMap = this.uploadMap.bind(this);
+        
+        function initializeGrid(){
+          for (let i = 0; i < 5; i++) {
+            this.state.grid.push([]);
+            for (let j = 0; j < 5; j++){
+              this.state.grid[i].push('O');
+            }
+          }
+        }
+        initializeGrid();
+        console.log(this.state.grid);
+
       }
       setPoint(event) {
-        console.log(event.target.getAttribute("id"));
+        //Col
+        var col = event.target.getAttribute("id");
+        console.log(col);
+        //Row
+        var row = event.target.getAttribute("class");
+        console.log(row);
+        //console.log(this.state.grid[row][col])
+        
+        
+        console.log(this.state.grid);
+        this.state.grid[row][col] = this.state.curr;
+        
+        //this.setState(this.state.grid);
+        
+        //console.log(this.state.grid[row][col])
+        //console.log(this.state.grid);
+        //this.forceUpdate();
+
         //this.setState({value: event.target.value});
       }
       handleChange(event) {
-        console.log(event.target.getAttribute("id"));
+        //console.log(event.target.getAttribute("id"));
         //this.setState({grid[event.target.row][event.target.cellId]: event.target.value});
       }
       
@@ -40,8 +69,9 @@ class buildMapView extends React.Component {
             <table>
               {
                 this.state.grid.map((row, index) => (
-                  <tr onClick={this.handleChange} key={index} id="row">
-                    {this.state.grid.map( (cellId,indexx) => <th key="1" id={indexx} onClick={this.setPoint} >{cellId}</th>)}
+                  <tr key={index} id="row">
+                    {row.map( (cellContent,colIndex) => 
+                      <td key={colIndex} onClick={this.setPoint} id={colIndex} class={index} >{cellContent}</td>)}
                   </tr>
                 ))
               }
