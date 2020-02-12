@@ -3,22 +3,22 @@ import React from 'react';
 class buildMapView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {grid:[], curr:'X'};
+        this.state = {grid: [], curr:'X'};
         this.setPoint = this.setPoint.bind(this);        
         this.handleChange = this.handleChange.bind(this);
         this.uploadMap = this.uploadMap.bind(this);
         
-        function initializeGrid(){
+        const initializeGrid = () => {
           for (let i = 0; i < 5; i++) {
             this.state.grid.push([]);
             for (let j = 0; j < 5; j++){
               this.state.grid[i].push('O');
             }
           }
-        }
+        };
+
         initializeGrid();
         console.log(this.state.grid);
-
       }
       setPoint(event) {
         //Col
@@ -29,11 +29,8 @@ class buildMapView extends React.Component {
         console.log(row);
         //console.log(this.state.grid[row][col])
         
-        
-        console.log(this.state.grid);
         this.state.grid[row][col] = this.state.curr;
-        
-        //this.setState(this.state.grid);
+        this.setState(this.state.grid);
         
         //console.log(this.state.grid[row][col])
         //console.log(this.state.grid);
@@ -59,6 +56,10 @@ class buildMapView extends React.Component {
                 <label>
                   Select Areas to encode:
                 </label>
+                <input type="button" name="name" />
+                <input type="button" name="name" />
+                <input type="button" name="name" />
+
               </form>
               {/*}
                 <ol>
