@@ -24,6 +24,10 @@ class buildMapView extends React.Component {
         initializeGrid();
 
       }
+      //Code here to send current grid layout to firebase under user credentials
+      submitMap(event) {
+        this.state.curr = "w";
+      }
       setPoint(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
@@ -32,34 +36,18 @@ class buildMapView extends React.Component {
       }
       changeToWall(event) {
         this.state.curr = "w";
-        //this.setState(this.state.curr);
-        //console.log(event.target.getAttribute("id"));
-        //this.setState({grid[event.target.row][event.target.cellId]: event.target.value});
       }
       changeToDoor(event){
         this.state.curr = "d";
-        //this.setState(this.state.curr);
       }
       changeToTable(event) {
         this.state.curr = "t";
-        //this.setState(this.state.curr);
-        //console.log(event.target.getAttribute("id"));
-        //this.setState({grid[event.target.row][event.target.cellId]: event.target.value});
       }
       changeToElevator(event){
         this.state.curr = "e";
-        //this.setState(this.state.curr);
-      }
-      //Code here to send current grid layout to firebase under user credentials
-      submitMap(event) {
-        this.state.curr = "w";
-        //this.setState(this.state.curr);
-        //console.log(event.target.getAttribute("id"));
-        //this.setState({grid[event.target.row][event.target.cellId]: event.target.value});
       }
       changeToStairs(event){
         this.state.curr = "s";
-        //this.setState(this.state.curr);
       }
       
       render() {  
@@ -108,7 +96,7 @@ class buildMapView extends React.Component {
                 this.state.grid.map((row, index) => (
                   <tr key={index} id="row">
                     {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.setPoint} id={colIndex} class={index} >{cellContent}</td>)}
+                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent} >{cellContent}</td>)}
                   </tr>
                 ))
               }
