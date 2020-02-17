@@ -13,7 +13,7 @@ class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = [];
+    this.users = ['Barry Allen', "Clark Kent"];
   }
 }
 
@@ -21,8 +21,8 @@ class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'X', currentUser: new CurrentUser()};
-        this.setPoint = this.setPoint.bind(this);     
+        this.state = {grid: [], curr:'X', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
+        this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.submitMap = this.submitMap.bind(this);        
 
         
@@ -58,30 +58,29 @@ class ViewMap extends React.Component {
 
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
-        this.state.curr = "w";
+        //this.state.curr = "w";
+        this.setState({
+            grid: this.state.grid, 
+            curr: "w", 
+            currentUser: this.state.currentUser,
+            peopleSeated: this.state.peopleSeated
+          })
       }
       //updates point based on the location the user clicks on the grid
-      setPoint(event) {
+      displayFriendsOnSelect(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
-        this.state.grid[row][col].type = this.state.curr;
-        this.setState(this.state.grid);
-      }
-      //Buttons to switch user selection
-      changeToWall(event) {
-        this.state.curr = "w";
-      }
-      changeToDoor(event){
-        this.state.curr = "d";
-      }
-      changeToTable(event) {
-        this.state.curr = "t";
-      }
-      changeToElevator(event){
-        this.state.curr = "e";
-      }
-      changeToStairs(event){
-        this.state.curr = "s";
+
+        this.setState({
+            grid: this.state.grid, 
+            curr: this.state.curr, 
+            currentUser: new CurrentUser(), 
+            peopleSeated: this.state.grid[row][col].users
+          });
+
+
+        this.state.peopleSeated = this.state.grid[row][col].users;
+        this.setState(this.state.peopleSeated);
       }
       
       render() {  
@@ -96,20 +95,21 @@ class ViewMap extends React.Component {
                 this.state.grid.map((row, index) => (
                   <tr key={index} id="row">
                     {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} >{cellContent.type}</td>)}
+                      <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} >{cellContent.type}</td>)}
                   </tr>
                 ))
               }
             </table>
                     <br>
                     </br>
-              <h2>Your Friends:</h2>
+              <h2>People Sitting Here:</h2>
             <table>
               {
-                this.state.currentUser.friends.map((friend, index) => (
-                  <tr key={index} id="row">
-                    {friend}
-                  </tr>
+                  
+                this.state.peopleSeated.map((person, index) => (
+                  <tbody key={index} id="row">
+                    {person}
+                  </tbody>
                 ))
               }
             </table>
