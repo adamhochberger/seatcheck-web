@@ -2,31 +2,27 @@
   background-image: url("door.png");
   width: 32px;
   height: 32px;
-  color: rgba(0, 0, 0, 0.5);
+
 }
 [img="w"]{
   background-image: url("brick.png");
   width: 32px;
   height: 32px;
-  color: rgba(0, 0, 0, 0.5);
 }
 [img="e"]{
   background-image: url("chair.jpg");
   width: 32px;
   height: 32px;
-  color: rgba(0, 0, 0, 0.5);
 }
 [img="t"]{
   background-image: url("elevator.png");
   width: 32px;
   height: 32px;
-  color: rgba(0, 0, 0, 0.5);
 }
 [img="s"]{
   background-image: url("stair.jpg");
   width: 32px;
   height: 32px;
-  color: rgba(0, 0, 0, 0.5);
 }
 .App {
   text-align: center;

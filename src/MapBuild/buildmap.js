@@ -1,9 +1,28 @@
 import React from 'react';
 
+
+//Object for the logged in user
+class CurrentUser {
+  constructor() {
+    //Get user info and Fill into the state
+      this.name = null;
+      this.friends = ['John','Blake'];
+  }
+}
+
+class Square {
+  constructor() {
+    this.type = 'O';
+    this.suit = null;
+    this.users = [];
+  }
+}
+
 class buildMapView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {grid: [], curr:'X'};
+        //Needs to store users and 
+        this.state = {grid: [], curr:'X', currentUser: new CurrentUser()};
         this.setPoint = this.setPoint.bind(this);
         this.changeToWall = this.changeToWall.bind(this);        
         this.changeToDoor = this.changeToDoor.bind(this);        
@@ -17,9 +36,11 @@ class buildMapView extends React.Component {
           for (let i = 0; i < 10; i++) {
             this.state.grid.push([]);
             for (let j = 0; j < 10; j++){
-              this.state.grid[i].push('O');
+              var square = new Square();
+              this.state.grid[i].push(square);
             }
           }
+          console.log(this.state.grid);
         };
         initializeGrid();
 
@@ -31,9 +52,10 @@ class buildMapView extends React.Component {
       setPoint(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
-        this.state.grid[row][col] = this.state.curr;
+        this.state.grid[row][col].type = this.state.curr;
         this.setState(this.state.grid);
       }
+      //Buttons to switch user selection
       changeToWall(event) {
         this.state.curr = "w";
       }
@@ -96,11 +118,24 @@ class buildMapView extends React.Component {
                 this.state.grid.map((row, index) => (
                   <tr key={index} id="row">
                     {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent} >{cellContent}</td>)}
+                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} >{cellContent.type}</td>)}
                   </tr>
                 ))
               }
             </table>
+                    <br>
+                    </br>
+
+            <table>
+              {
+                this.state.currentUser.friends.map((friend, index) => (
+                  <tr key={index} id="row">
+                    {friend}
+                  </tr>
+                ))
+              }
+            </table>
+
           </div>   
           );
         }

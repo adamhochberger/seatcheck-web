@@ -3,6 +3,8 @@ import User from './username.js'
 import RegisterForm from './Login/register.js';
 import BuildMapView from './MapBuild/buildmap.js';
 import MainPage from './mainPage.js';
+import Button from '@material-ui/core/Button';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -51,6 +53,9 @@ class App extends React.Component {
       render() {
           return (
             <div className="App">
+                  <Button variant="contained" color="primary">
+                    Hello World
+                  </Button>
               <Router>
               <header className="App-header">
                 <div>
