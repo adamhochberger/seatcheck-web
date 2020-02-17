@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 //Object for the logged in user
 class CurrentUser {
   constructor() {
@@ -18,17 +17,12 @@ class Square {
   }
 }
 
-class buildMapView extends React.Component {
+class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
         this.state = {grid: [], curr:'X', currentUser: new CurrentUser()};
-        this.setPoint = this.setPoint.bind(this);
-        this.changeToWall = this.changeToWall.bind(this);        
-        this.changeToDoor = this.changeToDoor.bind(this);        
-        this.changeToTable = this.changeToTable.bind(this);        
-        this.changeToElevator = this.changeToElevator.bind(this); 
-        this.changeToStairs = this.changeToStairs.bind(this);        
+        this.setPoint = this.setPoint.bind(this);     
         this.submitMap = this.submitMap.bind(this);        
 
         
@@ -95,42 +89,8 @@ class buildMapView extends React.Component {
         return (
           <div>
                 <label>
-                  Select Areas to encode (Choose an option):
+                  Example Viewing Map:
                 </label>
-                <br>
-                </br>
-                <br>
-                </br>
-                <label onClick={this.changeToWall}>
-                  Wall:
-                </label>
-                
-                <label onClick={this.changeToDoor}>
-                  Door:
-                </label>
-
-                <label onClick={this.changeToTable}>
-                  Table:
-                </label>
-                
-                <label onClick={this.changeToElevator}>
-                  Elevator:
-                </label>
-
-                <label onClick={this.changeToStairs}>
-                  Stairs:
-                </label>
-                
-                <label onClick={this.submitMap}>
-                  Submit
-                </label>
-
-              {/*}
-                <ol>
-                  {this.state.grid.map(obj => <li>{obj}</li>)}
-                </ol>
-            */}
-
             <table>
               {
                 this.state.grid.map((row, index) => (
@@ -160,9 +120,5 @@ class buildMapView extends React.Component {
         }
         
       }
-      function buildMap_(props){
-        //grid = [];
-        // Loop to create 2D array using 1D array 
-      } 
       
-export default buildMapView;
+export default ViewMap;

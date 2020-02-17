@@ -1,6 +1,8 @@
 import React from 'react';
 import User from './username.js'
 import RegisterForm from './Login/register.js';
+import ViewMap from './ViewMap/viewmap.js';
+
 import BuildMapView from './MapBuild/buildmap.js';
 import MainPage from './mainPage.js';
 import Button from '@material-ui/core/Button';
@@ -16,46 +18,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: 'login', toggle:true};
-        this.handleClick = this.handleClick.bind(this);
-        this.loginSwitch = this.loginSwitch.bind(this);
-        this.viewMapSwitch = this.viewMapSwitch.bind(this);
-        this.buildMapSwitch = this.buildMapSwitch.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
       }
-      handleChange(event) {
-        this.setState({value: event.target.value});
-      }
-    
-      handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
-      }
-      handleClick(){
-          this.setState(state => ({
-            value: 'value'
-          }));
-      }
-      loginSwitch(){
-        this.setState(state => ({
-          value: 'loginPage'
-        }));
-      }
-      viewMapSwitch(){
-        this.setState(state => ({
-          value: 'viewMapPage'
-        }));
-      }
-      buildMapSwitch(){
-        this.setState(state => ({
-          value: 'buildMapPage'
-        }));
-      }
+
       render() {
           return (
             <div className="App">
-                  <Button variant="contained" color="primary">
-                    Hello World
-                  </Button>
               <Router>
               <header className="App-header">
                 <div>
@@ -70,11 +37,16 @@ class App extends React.Component {
                     <Route path= "/build">
                       <BuildMapView></BuildMapView>
                     </Route>
+                    <Route path= "/view">
+                      <ViewMap></ViewMap>
+                    </Route>
                   </Switch>
                 </div>
                   <Link to='/mainPage'>Main Page</Link>
                   <Link to='/register'>Register Here</Link>
                   <Link to='/build'> Build Map</Link>
+                  <Link to='/view'> View Map</Link>
+
               </header>
               </Router>
             </div>
