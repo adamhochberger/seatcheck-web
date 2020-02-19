@@ -25,6 +25,7 @@ class ViewMap extends React.Component {
         this.state = {grid: [], curr:'X', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.submitMap = this.submitMap.bind(this);        
+        this.getData = this.getData.bind(this);        
 
         
         const initializeGrid = () => {
@@ -83,7 +84,15 @@ class ViewMap extends React.Component {
         this.state.peopleSeated = this.state.grid[row][col].users;
         this.setState(this.state.peopleSeated);
       }
-      
+      getData(i,j,val){
+        console.log(parseInt(i));
+        console.log(parseInt(j));
+        console.log(val);
+        // do not forget to bind getData in constructor
+        this.state.grid[parseInt(i)][parseInt(j)].type = val;
+        this.setState(this.state.grid);
+
+      }
       render() {  
         return (
           <div>
@@ -115,7 +124,7 @@ class ViewMap extends React.Component {
             </table>
 
             <h2>Your Friends:</h2>
-            <MyFilteringComponent grid={this.state.grid} content={this.state.currentUser.friends} />
+            <MyFilteringComponent sendData={this.getData}  grid={this.state.grid} content={this.state.currentUser.friends} />
 
             <h2>Main Menu:</h2>
 
