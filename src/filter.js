@@ -7,7 +7,7 @@ export default class MyFilteringComponent extends React.Component {
     }
     constructor(props) {
       super(props);
-     // this.showFriendLocation = this.showFriendLocation.bind(this);     
+      this.showFriendLocation = this.showFriendLocation.bind(this);     
   }
     //showFriendLocation = this.showFriendLocation.bind(this);     
 
@@ -25,21 +25,21 @@ export default class MyFilteringComponent extends React.Component {
           items: this.props.content
       })
     }
-    /*
-    showFriendLocation = (event) => {
+    
+    showFriendLocation(event){
       var name = event.target.getAttribute("key");
 
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++){
           if(this.props.grid[i][j].peopleSeated.includes(name)){
             this.props.grid[i][j].type = "X";
-            return;
           }
         }
       }
     }
-*/
+
     render() {
+      var self = this
       return (
         <div>
           <form>
@@ -48,7 +48,7 @@ export default class MyFilteringComponent extends React.Component {
           <div>
             {
                 this.state.items.map(function(item) {
-                    return <div key={item} /*onClick={this.showFriendLocation}*/>{item}</div>
+                    return <div key={item} onClick={self.showFriendLocation}>{item}</div>
                 })
             }
             </div>
