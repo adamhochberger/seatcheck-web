@@ -1,4 +1,5 @@
 import React from 'react';
+import MyFilteringComponent from '../filter.js';
 
 //Object for the logged in user
 class CurrentUser {
@@ -84,7 +85,6 @@ class ViewMap extends React.Component {
       }
       
       render() {  
-
         return (
           <div>
                 <label>
@@ -113,6 +113,10 @@ class ViewMap extends React.Component {
                 ))
               }
             </table>
+
+            <h2>Your Friends:</h2>
+            <MyFilteringComponent grid={this.state.grid} content={this.state.currentUser.friends} />
+
             <h2>Main Menu:</h2>
 
           </div>   

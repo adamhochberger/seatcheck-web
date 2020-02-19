@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 class MainPage extends React.Component {
       render() {
-        const countries =
+        const users =
         [
             "Tom",
             "Barry",
@@ -29,8 +29,9 @@ class MainPage extends React.Component {
               </p>
               </header>
             </div>
+            
 
-            <MyFilteringComponent content={countries} />
+            <MyFilteringComponent content={users} />
           </Router>
         );
       }

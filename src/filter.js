@@ -5,6 +5,11 @@ export default class MyFilteringComponent extends React.Component {
         initialItems: [],
         items: []
     }
+    constructor(props) {
+      super(props);
+     // this.showFriendLocation = this.showFriendLocation.bind(this);     
+  }
+    //showFriendLocation = this.showFriendLocation.bind(this);     
 
     filterList = (event) => {
       let items = this.state.initialItems;
@@ -20,7 +25,20 @@ export default class MyFilteringComponent extends React.Component {
           items: this.props.content
       })
     }
+    /*
+    showFriendLocation = (event) => {
+      var name = event.target.getAttribute("key");
 
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++){
+          if(this.props.grid[i][j].peopleSeated.includes(name)){
+            this.props.grid[i][j].type = "X";
+            return;
+          }
+        }
+      }
+    }
+*/
     render() {
       return (
         <div>
@@ -30,7 +48,7 @@ export default class MyFilteringComponent extends React.Component {
           <div>
             {
                 this.state.items.map(function(item) {
-                    return <div key={item}>{item}</div>
+                    return <div key={item} /*onClick={this.showFriendLocation}*/>{item}</div>
                 })
             }
             </div>
