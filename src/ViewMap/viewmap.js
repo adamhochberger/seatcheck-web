@@ -87,6 +87,7 @@ class ViewMap extends React.Component {
       render() {  
         return (
           <div>
+                <h1>View Map</h1>
                 <label>
                   Example Viewing Map:
                 </label>
@@ -116,8 +117,6 @@ class ViewMap extends React.Component {
 
             <h2>Your Friends:</h2>
             <MyFilteringComponent grid={this.state.grid} content={this.state.currentUser.friends} />
-
-            <h2>Main Menu:</h2>
 
           </div>   
           );

@@ -94,6 +94,7 @@ class buildMapView extends React.Component {
 
         return (
           <div>
+              <h1>Build Map</h1>
                 <label>
                   Select Areas to encode (Choose an option):
                 </label>
@@ -153,8 +154,6 @@ class buildMapView extends React.Component {
                 ))
               }
             </table>
-            <h2>Main Menu:</h2>
-
           </div>   
           );
         }

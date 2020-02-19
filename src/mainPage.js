@@ -20,13 +20,13 @@ class MainPage extends React.Component {
         ];
         return (
           <Router>
-
             <div className="App">
             <header className="App-header">
-              <img src={logo2} alt="logo" />
               <p>
                 Welcome to Social Compass.
               </p>
+              <img src={logo2} alt="logo" />
+
               </header>
             </div>
             
