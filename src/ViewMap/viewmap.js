@@ -14,7 +14,7 @@ class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = ['Barry Allen', "Clark Kent"];
+    this.users = ['Barry Allen', "Clark Kent", "John"];
   }
 }
 
