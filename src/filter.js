@@ -39,12 +39,11 @@ export default class MyFilteringComponent extends React.Component {
     }
 
     demoMethod(i,j){
-      this.props.sendData(i,j,"X");
+      this.props.sendGridData(i,j,"X");
     }
 
     showFriendLocation(event){
       var name = event.target.getAttribute("class");
-      console.log(this.props.grid[0][0].users.includes(name));
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++){
           

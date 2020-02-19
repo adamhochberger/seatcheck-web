@@ -25,7 +25,7 @@ class ViewMap extends React.Component {
         this.state = {grid: [], curr:'X', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.submitMap = this.submitMap.bind(this);        
-        this.getData = this.getData.bind(this);        
+        this.getGridData = this.getGridData.bind(this);        
 
         
         const initializeGrid = () => {
@@ -36,27 +36,10 @@ class ViewMap extends React.Component {
               this.state.grid[i].push(square);
             }
           }
-          console.log(this.state.grid);
         };
         initializeGrid();
 
       }
-      //Function needs to be in ViewMap Segment
-      //Search array at index and mark instances of it found in NxN grid 
-      /*
-      displayFriendsOnSide(event){
-        var index = event.target.getAttribute("key");
-        var name = this.currentUser.friends[index];
-        for(let i = 0; i < this.state.grid.length();i++){
-          for(let j = 0; j < this.state.grid.length();j++){
-              if( name in this.state.grid[i][j].users  ){
-
-              }
-          }
-        }
-
-      }
-      */
 
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
@@ -84,11 +67,8 @@ class ViewMap extends React.Component {
         this.state.peopleSeated = this.state.grid[row][col].users;
         this.setState(this.state.peopleSeated);
       }
-      getData(i,j,val){
-        console.log(parseInt(i));
-        console.log(parseInt(j));
-        console.log(val);
-        // do not forget to bind getData in constructor
+      //Sends data from parent to child
+      getGridData(i,j,val){
         this.state.grid[parseInt(i)][parseInt(j)].type = val;
         this.setState(this.state.grid);
 
@@ -124,7 +104,7 @@ class ViewMap extends React.Component {
             </table>
 
             <h2>Your Friends:</h2>
-            <MyFilteringComponent sendData={this.getData}  grid={this.state.grid} content={this.state.currentUser.friends} />
+            <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} />
 
             <h2>Main Menu:</h2>
 
