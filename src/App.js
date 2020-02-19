@@ -19,14 +19,50 @@ class App extends React.Component {
         super(props);
         this.state = {value: 'login', toggle:true};
       }
+      
 
       render() {
+        const li = [
+            {
+                link: "/mainPage",
+                text: "Main Page"
+            },
+
+            {
+                link: "/build",
+                text: "Build Map"
+            },
+            {
+                link: "/view",
+                text: "View Map"
+            },
+            {
+                link: "/register",
+                text: "Register"
+            },
+            {
+                link: "/login",
+                text: "Login"
+            }
+        ];
+
           return (
             <div className="App">
               <Router>
               <header className="App-header">
-                <div>
+                                <div className="navBar">
+                    <button onClick={this.Toggle}>
 
+                    </button>
+                    <ul className={this.state.toggle ? "links show-nav" : "links"}>
+                        {
+                            li.map((objLink, i) => {
+                                return ( <li key={i}><a href={objLink.link}>{objLink.text}</a></li> )
+                            })
+                        }
+                    </ul>
+                </div>  
+                <div>
                   <Switch>
                     <Route exact path= "/mainPage">
                       <MainPage></MainPage>
@@ -45,12 +81,7 @@ class App extends React.Component {
                     </Route>
                   </Switch>
                 </div>
-                  <Link to='/mainPage'>Main Page</Link>
-                  <Link to='/register'>Register Here</Link>
-                  <Link to='/build'> Build Map</Link>
-                  <Link to='/view'> View Map</Link>
-
-              </header>
+                </header>
               </Router>
             </div>
           );
