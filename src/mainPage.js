@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import logo2 from './logo.png';
 import './index.css';
-import NameForm from './Login/register.js'
+import MyFilteringComponent from './filter.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,7 +11,13 @@ import {
 } from "react-router-dom";
 class MainPage extends React.Component {
       render() {
-      
+        const countries =
+        [
+            "Tom",
+            "Barry",
+            "Dave",
+            "John"
+        ];
         return (
           <Router>
 
@@ -23,6 +29,8 @@ class MainPage extends React.Component {
               </p>
               </header>
             </div>
+
+            <MyFilteringComponent content={countries} />
           </Router>
         );
       }

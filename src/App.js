@@ -28,7 +28,7 @@ class App extends React.Component {
                 <div>
 
                   <Switch>
-                    <Route exact path= "/">
+                    <Route exact path= "/mainPage">
                       <MainPage></MainPage>
                     </Route>
                     <Route path= "/register">
