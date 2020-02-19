@@ -4,9 +4,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { makeStyles } from 'material-ui/styles';
+import Container from 'material-ui/Container';
 
+const classes = useStyles();
 
 class Login extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,7 +32,6 @@ class Login extends React.Component {
         event.preventDefault();
 
     }
-
     render() {
         return (
             <div>
@@ -56,7 +59,7 @@ class Login extends React.Component {
             </div>
         );
     }
-
+    
     /*render() {
         return (
             <div className='container'>
