@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from './firebase.js';
 import User from './username.js'
 import RegisterForm from './Login/register.js';
 import BuildMapView from './MapBuild/buildmap.js';
@@ -20,6 +21,7 @@ class App extends React.Component {
         this.buildMapSwitch = this.buildMapSwitch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
+
       handleChange(event) {
         this.setState({value: event.target.value});
       }

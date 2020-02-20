@@ -21,12 +21,22 @@ class NameForm extends React.Component {
       }
     
       handleSubmit(event) {
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-            console.log(error.code);
-            console.log(error.message);
-        });
-        event.preventDefault();
-        
+        if (this.state.confirmPass == this.state.password) {
+            try {
+              firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
+                  //console.log("user.uid: ", user.user.uid);
+                  firebase.firestore().collection('users').doc(user.user.uid).set({
+                      uid: user.user.uid,
+                      email: this.state.email,
+                      joinedMaps: [],
+                      createdMaps: []
+                  });
+              });
+
+          } catch (error) {
+              console.log(error.toString());
+          }
+        }
       }
 
       render() {
