@@ -1,4 +1,6 @@
 import React from 'react';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 export default class MyFilteringComponent extends React.Component {
     state = {
@@ -43,6 +45,10 @@ export default class MyFilteringComponent extends React.Component {
     }
 
     showFriendLocation(event){
+      if(this.props.grid == null){
+        return
+      }
+
       var name = event.target.getAttribute("class");
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++){
@@ -53,8 +59,6 @@ export default class MyFilteringComponent extends React.Component {
           
         }
       }
-
-
     }
 
     render() {
@@ -62,12 +66,18 @@ export default class MyFilteringComponent extends React.Component {
       return (
         <div>
           <form>
-                <input type="text" placeholder="Search" onChange={this.filterList}/>
+                <Input placeholder="Search" onChange={this.filterList} inputProps={{ 'aria-label': 'description' }} />
           </form>
           <div>
             {
                 this.state.items.map(function(item) {
-                    return <div key={item} class={item} onClick={self.showFriendLocation}>{item}</div>
+                    return <div key={item} class={item} onClick={self.showFriendLocation}>
+                      {item}
+                    <Button variant="contained" color="primary">
+                    Add To Friends
+                    </Button>
+                    
+                    </div>
                 })
             }
             </div>
