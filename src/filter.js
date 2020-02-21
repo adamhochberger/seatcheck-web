@@ -73,9 +73,13 @@ export default class MyFilteringComponent extends React.Component {
                 this.state.items.map(function(item) {
                     return <div key={item} class={item} onClick={self.showFriendLocation}>
                       {item}
-                    <Button variant="contained" color="primary">
-                    Add To Friends
-                    </Button>
+
+                      {self.props.hasFriends ? (
+                                            <Button variant="contained" color="primary">
+                                            Add To Friends
+                                          </Button>
+                      ) : ''}
+
                     
                     </div>
                 })

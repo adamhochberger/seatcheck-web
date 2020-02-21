@@ -1,6 +1,12 @@
 import React from 'react';
 import MyFilteringComponent from '../filter.js';
 
+
+/* TODO
+  There should be a prepage, asking the user to enter the secret code for map
+
+*/
+
 //Object for the logged in user
 class CurrentUser {
   constructor() {
@@ -105,7 +111,7 @@ class ViewMap extends React.Component {
             </table>
 
             <h2>Your Friends:</h2>
-            <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} />
+            <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} hasFriends={false}/>
 
           </div>   
           );
