@@ -3,7 +3,7 @@ import React from 'react';
 
 /*
 TO DO
-
+  Add a remove button
   When map is submitted, give the user who made it a secret code for the map
   
 
@@ -33,8 +33,9 @@ class buildMapView extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'X', currentUser: new CurrentUser()};
+        this.state = {grid: [], curr:'O', currentUser: new CurrentUser()};
         this.setPoint = this.setPoint.bind(this);
+        this.changeToDefault = this.changeToDefault.bind(this);        
         this.changeToWall = this.changeToWall.bind(this);        
         this.changeToDoor = this.changeToDoor.bind(this);        
         this.changeToTable = this.changeToTable.bind(this);        
@@ -51,7 +52,6 @@ class buildMapView extends React.Component {
               this.state.grid[i].push(square);
             }
           }
-          console.log(this.state.grid);
         };
         initializeGrid();
 
@@ -100,6 +100,9 @@ class buildMapView extends React.Component {
       changeToStairs(event){
         this.state.curr = "s";
       }
+      changeToDefault(event) {
+        this.state.curr = "O";
+      }
       
       render() {  
 
@@ -113,6 +116,9 @@ class buildMapView extends React.Component {
                 </br>
                 <br>
                 </br>
+                <label onClick={this.changeToDefault}>
+                  Undo:
+                </label>
                 <label onClick={this.changeToWall}>
                   Wall:
                 </label>
@@ -148,7 +154,7 @@ class buildMapView extends React.Component {
                 this.state.grid.map((row, index) => (
                   <tr key={index} id="row">
                     {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} >{cellContent.type}</td>)}
+                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
                   </tr>
                 ))
               }

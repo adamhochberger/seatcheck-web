@@ -4,7 +4,8 @@ import MyFilteringComponent from '../filter.js';
 
 /* TODO
   There should be a prepage, asking the user to enter the secret code for map
-
+  
+  Change filter so a person searched pops up as a person emoji or something
 */
 
 //Object for the logged in user
@@ -28,7 +29,7 @@ class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'X', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
+        this.state = {grid: [], curr:'O', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.submitMap = this.submitMap.bind(this);        
         this.getGridData = this.getGridData.bind(this);        
@@ -69,7 +70,6 @@ class ViewMap extends React.Component {
             peopleSeated: this.state.grid[row][col].users
           });
 
-
         this.state.peopleSeated = this.state.grid[row][col].users;
         this.setState(this.state.peopleSeated);
       }
@@ -91,7 +91,7 @@ class ViewMap extends React.Component {
                 this.state.grid.map((row, index) => (
                   <tr key={index} id="row">
                     {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} >{cellContent.type}</td>)}
+                      <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
                   </tr>
                 ))
               }

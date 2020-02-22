@@ -1,26 +1,31 @@
+[img="O"]{
+  background-image: url("square2.png");
+  width: 64px;
+  height: 64px;
+}
 [img="d"]{
-  background-image: url("door.png");
-  width: 32px;
-  height: 32px;
+  background-image: url("door2.png");
+  width: 64px;
+  height: 64px;
 
 }
 [img="w"]{
-  background-image: url("brick.png");
-  width: 32px;
-  height: 32px;
-}
-[img="e"]{
-  background-image: url("chair.jpg");
+  background-image: url("brick2.png");
   width: 32px;
   height: 32px;
 }
 [img="t"]{
-  background-image: url("elevator.png");
+  background-image: url("table2.png");
+  width: 64px;
+  height: 64px;
+}
+[img="e"]{
+  background-image: url("elevator2.png");
   width: 32px;
   height: 32px;
 }
 [img="s"]{
-  background-image: url("stair.jpg");
+  background-image: url("stair2.png");
   width: 32px;
   height: 32px;
 }

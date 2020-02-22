@@ -11,20 +11,6 @@ export default class MyFilteringComponent extends React.Component {
       super(props);
       this.showFriendLocation = this.showFriendLocation.bind(this);     
   }
-    //showFriendLocation = this.showFriendLocation.bind(this);     
-    // componentDidUpdate(oldProps, oldstate){
-    //   console.log("old");
-    //   console.log(oldProps);
-    //   const newProps = this.props;
-    //   if (this.state.grid !== oldstate.grid) {
-    //     this.setState({ grid: newProps.grid });
-    //   }
-
-    //   console.log("New");
-    //   console.log(newProps);
-
-    // }
-    
     filterList = (event) => {
       let items = this.state.initialItems;
       items = items.filter((item) => {
@@ -50,6 +36,7 @@ export default class MyFilteringComponent extends React.Component {
       }
 
       var name = event.target.getAttribute("class");
+      
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++){
           
