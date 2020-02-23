@@ -176,9 +176,5 @@ class buildMapView extends React.Component {
         }
         
       }
-      function buildMap_(props){
-        //grid = [];
-        // Loop to create 2D array using 1D array 
-      } 
       
 export default buildMapView;

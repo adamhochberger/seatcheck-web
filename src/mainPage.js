@@ -1,13 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import logo2 from './logo.png';
+import logo2 from './assets/./logo.png';
 import './index.css';
 import MyFilteringComponent from './filter.js';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
 } from "react-router-dom";
 class MainPage extends React.Component {
       render() {

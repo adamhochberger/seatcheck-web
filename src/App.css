@@ -1,31 +1,31 @@
 [img="O"]{
-  background-image: url("square2.png");
+  background-image: url("assets/square2.png");
   width: 64px;
   height: 64px;
 }
 [img="d"]{
-  background-image: url("door2.png");
+  background-image: url("assets/door2.png");
   width: 64px;
   height: 64px;
 
 }
 [img="w"]{
-  background-image: url("brick2.png");
+  background-image: url("assets/brick2.png");
   width: 32px;
   height: 32px;
 }
 [img="t"]{
-  background-image: url("table2.png");
+  background-image: url("assets/table2.png");
   width: 64px;
   height: 64px;
 }
 [img="e"]{
-  background-image: url("elevator2.png");
+  background-image: url("assets/elevator2.png");
   width: 32px;
   height: 32px;
 }
 [img="s"]{
-  background-image: url("stair2.png");
+  background-image: url("assets/stair2.png");
   width: 32px;
   height: 32px;
 }
