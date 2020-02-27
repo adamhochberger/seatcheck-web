@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from './firebase.js';
 import User from './username.js'
 import RegisterForm from './Login/register.js';
 import ViewMap from './ViewMap/viewmap.js';
@@ -18,6 +19,40 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: 'login', toggle:true};
+        this.handleClick = this.handleClick.bind(this);
+        this.loginSwitch = this.loginSwitch.bind(this);
+        this.viewMapSwitch = this.viewMapSwitch.bind(this);
+        this.buildMapSwitch = this.buildMapSwitch.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+      handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        alert('A name was submitted: ' + this.state.value);
+        event.preventDefault();
+      }
+      handleClick(){
+          this.setState(state => ({
+            value: 'value'
+          }));
+      }
+      loginSwitch(){
+        this.setState(state => ({
+          value: 'loginPage'
+        }));
+      }
+      viewMapSwitch(){
+        this.setState(state => ({
+          value: 'viewMapPage'
+        }));
+      }
+      buildMapSwitch(){
+        this.setState(state => ({
+          value: 'buildMapPage'
+        }));
       }
       
 

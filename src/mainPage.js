@@ -2,6 +2,7 @@ import React from 'react';
 import logo2 from './assets/./logo.png';
 import './index.css';
 import MyFilteringComponent from './filter.js';
+
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
@@ -24,6 +25,7 @@ class MainPage extends React.Component {
               <img src={logo2} alt="logo" />
 
               </header>
+              <Login></Login>
             </div>
             
 

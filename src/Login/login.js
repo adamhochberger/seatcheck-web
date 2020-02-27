@@ -14,22 +14,60 @@ class Login extends React.Component {
             name: '',
             email: '',
             password: '',
+            loggedIn: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.isLoggedIn = this.isLoggedIn.bind(this);
+        this.handleLogout = this.handleLogout.bind(this)
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit(event) {
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-            console.log(error.code);
-            console.log(error.message);
-        });
+    handleLogin(event) {
+        try {
+            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
+                
+                console.log("Logged in ", user);
+                
+            });
+            
+        } catch(error){
+            console.log(error.toString());
+            return;
+        }
+        event.preventDefault();
 
+    }
+  
+    isLoggedIn(event) {
+        
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              //this.setState({ user });
+              console.log(user);
+              //this.setState({loggedIn:true});
+              this.setState(state => ({
+                loggedIn: true
+              }));
+              console.log(this.state.loggedIn);
+              
+            } /*else if (!user && this.state.loggedIn) {
+                this.setState({loggedIn:false});
+            }*/
+            
+        });
+    }
+  
+    handleLogout(event) {
+        firebase.auth().signOut().then(function() {
+            console.log('Signed Out');
+          }, function(error) {
+            console.error('Sign Out Error', error);
+          });
         event.preventDefault();
     }
 
@@ -80,7 +118,9 @@ class Login extends React.Component {
                             inputStyle={styles.errorStyle}
                             />
                         <br />
-                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleSubmit(event)} />
+                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLogin(event)} />
+                        <RaisedButton label="Test" primary={true} style={style} onClick={(event) => this.isLoggedIn(event)} />
+                        <RaisedButton label="Logout" primary={true} style={style} onClick={(event) => this.handleLogout(event)} />
                     </div>
                 </MuiThemeProvider>
             </div>
@@ -91,4 +131,5 @@ class Login extends React.Component {
 const style = {
     margin: 15,
 };
+
 export default Login;
