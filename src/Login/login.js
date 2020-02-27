@@ -96,9 +96,9 @@ class Login extends React.Component {
                             title="Login"
                         />
                         <TextField
-                            hintText="Enter your Username"
-                            floatingLabelText="Username"
-                            onChange={(event, newValue) => this.setState({ username: newValue })}
+                            hintText="Enter your Email"
+                            floatingLabelText="Email"
+                            onChange={(event, newValue) => this.setState({ email: newValue })}
                             floatingLabelStyle={styles.floatingLabelStyle}
                             floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                             underlineFocusStyle={styles.underlineStyle}
