@@ -1,5 +1,10 @@
 import React from 'react';
 import firebase from '../firebase.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import {white500} from 'material-ui/styles/colors';
 
 
 class Login extends React.Component {
@@ -14,13 +19,12 @@ class Login extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.isLoggedIn = this.isLoggedIn.bind(this);
         this.handleLogout = this.handleLogout.bind(this)
-        this.isLoggedIn = this.isLoggedIn.bind(this)
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
-        
     }
 
     handleLogin(event) {
@@ -38,16 +42,7 @@ class Login extends React.Component {
         event.preventDefault();
 
     }
-
-    handleLogout(event) {
-        firebase.auth().signOut().then(function() {
-            console.log('Signed Out');
-          }, function(error) {
-            console.error('Sign Out Error', error);
-          });
-        event.preventDefault();
-    }
-
+  
     isLoggedIn(event) {
         
         firebase.auth().onAuthStateChanged((user) => {
@@ -66,10 +61,35 @@ class Login extends React.Component {
             
         });
     }
+  
+    handleLogout(event) {
+        firebase.auth().signOut().then(function() {
+            console.log('Signed Out');
+          }, function(error) {
+            console.error('Sign Out Error', error);
+          });
+        event.preventDefault();
+    }
 
-    /*render() {
+    render() {
+        const styles = {
+            errorStyle: {
+                color: white500,
+            },
+            underlineStyle: {
+                borderColor: white500,
+            },
+            floatingLabelStyle: {
+                color: white500,
+            },
+            floatingLabelFocusStyle: {
+                color: white500,
+            },
+            margin: 15,
+        };
         return (
             <div>
+                <br />
                 <MuiThemeProvider>
                     <div>
                         <AppBar
@@ -79,41 +99,37 @@ class Login extends React.Component {
                             hintText="Enter your Username"
                             floatingLabelText="Username"
                             onChange={(event, newValue) => this.setState({ username: newValue })}
-                        />
+                            floatingLabelStyle={styles.floatingLabelStyle}
+                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                            underlineFocusStyle={styles.underlineStyle}
+                            hintStyle={styles.errorStyle}
+                            inputStyle={styles.errorStyle}  
+                            />
                         <br />
                         <TextField
                             type="password"
                             hintText="Enter your Password"
                             floatingLabelText="Password"
                             onChange={(event, newValue) => this.setState({ password: newValue })}
-                        />
+                            floatingLabelStyle={styles.floatingLabelStyle}
+                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                            underlineFocusStyle={styles.underlineStyle}
+                            hintStyle={styles.errorStyle}
+                            inputStyle={styles.errorStyle}
+                            />
                         <br />
-                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
+                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLogin(event)} />
+                        <RaisedButton label="Test" primary={true} style={style} onClick={(event) => this.isLoggedIn(event)} />
+                        <RaisedButton label="Logout" primary={true} style={style} onClick={(event) => this.handleLogout(event)} />
                     </div>
                 </MuiThemeProvider>
-            </div>
-        );
-    }*/
-    
-    render() {
-        return (
-            <div className='container'>
-                <section className='create-account'>
-                    <form onSubmit={this.handleLogin}>   
-                        <input type="text" name="name" value={this.state.value} onChange={this.handleChange} value={this.state.name} /> 
-                        <input type="text" name="email" value={this.state.value} onChange={this.handleChange} value={this.state.email} />
-                        <input type="password" name="password" value={this.state.value} onChange={this.handleChange} value={this.state.password} />
-                        <input type="submit" value="Login" />
-                        <button onClick={this.handleLogout}>Log Out</button>
-                    </form>
-                    <button onClick={this.isLoggedIn}>Test</button>
-                </section>
             </div>
         );
     }
 }
 
-/*const style = {
+const style = {
     margin: 15,
-};*/
+};
+
 export default Login;
