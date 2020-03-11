@@ -5,8 +5,6 @@ import React from 'react';
 TO DO
   Add a remove button
   When map is submitted, give the user who made it a secret code for the map
-  
-
 
   Allow users to edit a map?
 

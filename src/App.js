@@ -4,7 +4,7 @@ import User from './username.js'
 import RegisterForm from './Login/register.js';
 import ViewMap from './ViewMap/viewmap.js';
 import Login from './Login/login.js';
-import BuildMapView from './MapBuild/buildmap.js';
+import BuildMapView from './MapBuild/createmap.js';
 import MainPage from './mainPage.js';
 import Button from '@material-ui/core/Button';
 
@@ -65,7 +65,7 @@ class App extends React.Component {
 
             {
                 link: "/build",
-                text: "Build Map"
+                text: "Create Map"
             },
             {
                 link: "/view",
