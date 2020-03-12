@@ -1,6 +1,6 @@
 import React from 'react';
 import MyFilteringComponent from '../filter.js';
-
+import { Grid } from '@material-ui/core';
 
 /* TODO
   There should be a prepage, asking the user to enter the secret code for map
@@ -86,29 +86,41 @@ class ViewMap extends React.Component {
                 <label>
                   Example Viewing Map:
                 </label>
-            <table>
-              {
-                this.state.grid.map((row, index) => (
-                  <tr key={index} id="row">
-                    {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
-                  </tr>
-                ))
-              }
-            </table>
+                <Grid 
+                container
+                direction="row"
+                justify="center"
+                alignItems="center">
+                  <Grid item>
+                  <h4>People Sitting Here:</h4>
+                  <table>
+                    {
+                      this.state.peopleSeated.map((person, index) => (
+                        <tbody key={index} id="row">
+                          {person}
+                        </tbody>
+                      ))
+                    }
+                  </table>
+
+                      </Grid>
+                      <Grid item>
+                        <table>
+                          {
+                            this.state.grid.map((row, index) => (
+                              <tr key={index} id="row">
+                                {row.map( (cellContent,colIndex) => 
+                                  <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
+                              </tr>
+                            ))
+                          }
+                        </table>
+                      </Grid>
+                  </Grid>
+
                     <br>
                     </br>
-              <h2>People Sitting Here:</h2>
-            <table>
-              {
-                  
-                this.state.peopleSeated.map((person, index) => (
-                  <tbody key={index} id="row">
-                    {person}
-                  </tbody>
-                ))
-              }
-            </table>
+
 
             <h2>Your Friends:</h2>
             <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} hasFriends={false}/>

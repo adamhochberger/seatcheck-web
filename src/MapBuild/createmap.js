@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
 
 /*
 TO DO
@@ -31,7 +32,7 @@ class buildMapView extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'O', currentUser: new CurrentUser()};
+        this.state = {grid: [], curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false]};
         this.setPoint = this.setPoint.bind(this);
         this.changeToDefault = this.changeToDefault.bind(this);        
         this.changeToWall = this.changeToWall.bind(this);        
@@ -83,63 +84,116 @@ class buildMapView extends React.Component {
         this.setState(this.state.grid);
       }
       //Buttons to switch user selection
+      
+      changeToDefault(event) {
+
+        this.setState({
+          curr: "O",
+          disabledButtons: [true,false,false,false,false,false]
+        });
+
+      }
       changeToWall(event) {
-        this.state.curr = "w";
+
+        this.setState({
+          curr: "w",
+          disabledButtons: [false,true,false,false,false,false]
+        });
       }
       changeToDoor(event){
-        this.state.curr = "d";
+        this.setState({
+          curr: "d",
+          disabledButtons: [false,false,true,false,false,false]
+        });
       }
       changeToTable(event) {
-        this.state.curr = "t";
+
+        this.setState({
+          curr: "t",
+          disabledButtons: [false,false,false,true,false,false]
+        });
       }
       changeToElevator(event){
-        this.state.curr = "e";
+        this.setState({
+          curr: "e",
+          disabledButtons: [false,false,false,false,true,false]
+        });
       }
       changeToStairs(event){
-        this.state.curr = "s";
-      }
-      changeToDefault(event) {
-        this.state.curr = "O";
+        this.setState({
+          curr: "s",
+          disabledButtons: [false,false,false,false,false,true]
+        });
       }
       
       render() {  
 
         return (
           <div>
-              <h1>Build Map</h1>
+              <h1>Create Map</h1>
                 <label>
-                  Select Areas to encode (Choose an option):
+                  Select Areas to fill with Walls and Tables (Choose an option):
                 </label>
                 <br>
                 </br>
                 <br>
                 </br>
-                <label onClick={this.changeToDefault}>
-                  Undo:
-                </label>
-                <label onClick={this.changeToWall}>
-                  Wall:
-                </label>
-                
-                <label onClick={this.changeToDoor}>
-                  Door:
-                </label>
+                <Grid 
+                container
+                direction="row"
+                justify="center"
+                alignItems="center">
+                  <Grid item>
+                    <Grid
+                      container
+                      direction="column"
+                      justify="center"
+                      alignItems="center"
+                      spacing={1}
+                    >
+                    <Button variant="contained" color="primary" onClick={this.changeToDefault} disabled={this.state.disabledButtons[0]}>
+                        Undo
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.changeToWall} disabled={this.state.disabledButtons[1]}>
+                        Wall
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.changeToDoor} disabled={this.state.disabledButtons[2]}>
+                        Door
+                    </Button>
+                    <Button variant="contained" color="primary"  onClick={this.changeToTable} disabled={this.state.disabledButtons[3]}>
+                        Table
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.changeToElevator} disabled={this.state.disabledButtons[4]}>
+                        Elevator
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.changeToStairs} disabled={this.state.disabledButtons[5]}>
+                        Stairs
+                    </Button>
+                    </Grid>
+                  </Grid>
 
-                <label onClick={this.changeToTable}>
-                  Table:
-                </label>
-                
-                <label onClick={this.changeToElevator}>
-                  Elevator:
-                </label>
+                  <Grid item>  
+                                    
+                    <label onClick={this.submitMap}>
+                      Submit
+                    </label>
+                    <table>
+                      {
+                        this.state.grid.map((row, index) => (
+                          <tr key={index} id="row">
+                            {row.map( (cellContent,colIndex) => 
+                              <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
+                          </tr>
+                        ))
+                      }
+                    </table>
+                  </Grid>
 
-                <label onClick={this.changeToStairs}>
-                  Stairs:
-                </label>
-                
-                <label onClick={this.submitMap}>
-                  Submit
-                </label>
+                  <Grid item sm>
+                    
+                  </Grid>
+                </Grid>
+
 
               {/*}
                 <ol>
@@ -147,16 +201,6 @@ class buildMapView extends React.Component {
                 </ol>
             */}
 
-            <table>
-              {
-                this.state.grid.map((row, index) => (
-                  <tr key={index} id="row">
-                    {row.map( (cellContent,colIndex) => 
-                      <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
-                  </tr>
-                ))
-              }
-            </table>
                     <br>
                     </br>
               <h2>Your Friends:</h2>
