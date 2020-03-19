@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
+import firebase from '../firebase.js';
 
 /*
 TO DO
@@ -19,7 +20,11 @@ class CurrentUser {
       this.friends = ['John','Blake'];
   }
 }
-
+class Container {
+  constructor() {
+    this.array = [];
+  }
+}
 class Square {
   constructor() {
     this.type = 'O';
@@ -32,7 +37,7 @@ class buildMapView extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false]};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false]};
         this.setPoint = this.setPoint.bind(this);
         this.changeToDefault = this.changeToDefault.bind(this);        
         this.changeToWall = this.changeToWall.bind(this);        
@@ -45,10 +50,11 @@ class buildMapView extends React.Component {
         
         const initializeGrid = () => {
           for (let i = 0; i < 10; i++) {
-            this.state.grid.push([]);
+            let container = new Container();
+            this.state.grid.array.push(container);
             for (let j = 0; j < 10; j++){
               var square = new Square();
-              this.state.grid[i].push(square);
+              this.state.grid.array[i].array.push(square);
             }
           }
         };
@@ -74,13 +80,29 @@ class buildMapView extends React.Component {
 
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
-        this.state.curr = "w";
+
+        let setDoc = firebase.firestore().collection('data').doc('one').set(JSON.parse( JSON.stringify(this.state.grid)));
+        
+        let cityRef = firebase.firestore().collection('data').doc('one');
+        let getDoc = cityRef.get()
+          .then(doc => {
+            if (!doc.exists) {
+              console.log('No such document!');
+            } else {
+              console.log('Document data:', doc.data());
+            }
+          })
+          .catch(err => {
+            console.log('Error getting document', err);
+          });
+
+        
       }
       //updates point based on the location the user clicks on the grid
       setPoint(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
-        this.state.grid[row][col].type = this.state.curr;
+        this.state.grid.array[row].array[col].type = this.state.curr;
         this.setState(this.state.grid);
       }
       //Buttons to switch user selection
@@ -179,9 +201,9 @@ class buildMapView extends React.Component {
                     </label>
                     <table>
                       {
-                        this.state.grid.map((row, index) => (
+                        this.state.grid.array.map((row, index) => (
                           <tr key={index} id="row">
-                            {row.map( (cellContent,colIndex) => 
+                            {row.array.map( (cellContent,colIndex) => 
                               <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
                           </tr>
                         ))
