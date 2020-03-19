@@ -46,9 +46,15 @@ class buildMapView extends React.Component {
         this.changeToElevator = this.changeToElevator.bind(this); 
         this.changeToStairs = this.changeToStairs.bind(this);        
         this.submitMap = this.submitMap.bind(this);        
+        this.resetGrid = this.resetGrid.bind(this);
+        this.resetGrid2 = this.resetGrid2.bind(this);
 
-        
+        this.resetGrid3 = this.resetGrid3.bind(this);
+
+
         const initializeGrid = () => {
+          this.state.grid = new Container();
+  
           for (let i = 0; i < 10; i++) {
             let container = new Container();
             this.state.grid.array.push(container);
@@ -58,6 +64,8 @@ class buildMapView extends React.Component {
             }
           }
         };
+          
+
         initializeGrid();
 
       }
@@ -72,12 +80,56 @@ class buildMapView extends React.Component {
               if( name in this.state.grid[i][j].users  ){
 
               }
-          }
+          } 
         }
 
       }
       */
+      resetGrid(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 10; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 10; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
 
+
+      }
+      resetGrid2(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 15; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 15; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
+
+
+      }
+      resetGrid3(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 18; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 18; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
+
+
+      }
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
 
@@ -95,6 +147,11 @@ class buildMapView extends React.Component {
           .catch(err => {
             console.log('Error getting document', err);
           });
+
+
+          //Add map custom key into user object's list of maps
+          //Update user db entry
+
 
         
       }
@@ -154,8 +211,9 @@ class buildMapView extends React.Component {
           <div>
               <h1>Create Map</h1>
                 <label>
-                  Select Areas to fill with Walls and Tables (Choose an option):
+                  Select Areas to fill with Walls and Tables (Enter Grid Size to Change):
                 </label>
+
                 <br>
                 </br>
                 <br>
@@ -195,10 +253,19 @@ class buildMapView extends React.Component {
                   </Grid>
 
                   <Grid item>  
-                                    
-                    <label onClick={this.submitMap}>
-                      Submit
-                    </label>
+                                  
+                    <Button variant="contained" color="secondary" onClick={this.submitMap}>
+                        Submit
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.resetGrid}>
+                        10x10
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.resetGrid2}>
+                        15x15
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.resetGrid3}>
+                        18x18
+                    </Button>
                     <table>
                       {
                         this.state.grid.array.map((row, index) => (
