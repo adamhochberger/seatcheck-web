@@ -2,12 +2,24 @@ import React from 'react';
 import firebase from './firebase.js';
 import User from './username.js'
 import RegisterForm from './Login/register.js';
+import MenuAppBar from './materials/menubar.js';
 import ViewMap from './ViewMap/viewmap.js';
 import Login from './Login/login.js';
 import BuildMapView from './MapBuild/createmap.js';
 import MainPage from './mainPage.js';
 import Button from '@material-ui/core/Button';
-
+import {AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    Switch as Switchy,
+    FormControlLabel,
+    FormGroup,
+    Menu,
+    MenuItem} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
+import {AccountCircle} from '@material-ui/icons';
+import {MenuIcon} from '@material-ui/icons/Menu';
 import {
   BrowserRouter as Router,
   Switch,
@@ -80,10 +92,19 @@ class App extends React.Component {
                 text: "Login"
             }
         ];
-
+        const { auth, anchorEl } = this.state;
+        const open = Boolean(anchorEl);
+        const useStyles = makeStyles(theme => ({
+            menuButton: {
+                marginRight: theme.spacing(2),
+            }
+        }))
           return (
             <div className="App">
-                <Router>
+                <MenuAppBar></MenuAppBar>
+            </div>
+            
+                /* <Router>
                     <header className="App-header">
                         <div className="navBar">
                             <button onClick={this.Toggle} />
@@ -115,8 +136,7 @@ class App extends React.Component {
                             </Switch>
                         </div>
                     </header>
-              </Router>
-            </div>
+              </Router> */
           );
     }
 }
