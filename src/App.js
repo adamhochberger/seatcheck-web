@@ -83,40 +83,38 @@ class App extends React.Component {
 
           return (
             <div className="App">
-              <Router>
-              <header className="App-header">
-                                <div className="navBar">
-                    <button onClick={this.Toggle}>
-
-                    </button>
-                    <ul className={this.state.toggle ? "links show-nav" : "links"}>
-                        {
-                            li.map((objLink, i) => {
-                                return ( <li key={i}><a href={objLink.link}>{objLink.text}</a></li> )
-                            })
-                        }
-                    </ul>
-                </div>  
-                <div>
-                  <Switch>
-                    <Route exact path= "/mainPage">
-                      <MainPage></MainPage>
-                    </Route>
-                    <Route path= "/register">
-                      <RegisterForm></RegisterForm>
-                    </Route>
-                    <Route path= "/build">
-                      <BuildMapView></BuildMapView>
-                    </Route>
-                    <Route path= "/view">
-                      <ViewMap></ViewMap>
-                    </Route>
-                    <Route path= "/login">
-                      <Login></Login>
-                    </Route>
-                  </Switch>
-                </div>
-                </header>
+                <Router>
+                    <header className="App-header">
+                        <div className="navBar">
+                            <button onClick={this.Toggle} />
+                            <ul className={this.state.toggle ? "links show-nav" : "links"}>
+                                {
+                                    li.map((objLink, i) => {
+                                        return ( <li key={i}><a href={objLink.link}>{objLink.text}</a></li> )
+                                    })
+                                }
+                            </ul>
+                        </div>  
+                        <div>
+                            <Switch>
+                            <Route exact path= "/mainPage">
+                                <MainPage></MainPage>
+                            </Route>
+                            <Route path= "/register">
+                                <RegisterForm></RegisterForm>
+                            </Route>
+                            <Route path= "/build">
+                                <BuildMapView></BuildMapView>
+                            </Route>
+                            <Route path= "/view">
+                                <ViewMap></ViewMap>
+                            </Route>
+                            <Route path= "/login">
+                                <Login></Login>
+                            </Route>
+                            </Switch>
+                        </div>
+                    </header>
               </Router>
             </div>
           );

@@ -1,14 +1,14 @@
 import React from 'react';
 import firebase from '../firebase.js';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import {white500} from 'material-ui/styles/colors';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
-
-
-class NameForm extends React.Component {
+class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,14 +18,14 @@ class NameForm extends React.Component {
             confirmPass: ''
         };
     
-        //this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-    /*
+    
       handleChange(event) {
           this.setState({ [event.target.name]: event.target.value });
       }
-    */
+    
     
       handleSubmit(event) {
           const enteredEmail = this.state.email;
@@ -51,88 +51,94 @@ class NameForm extends React.Component {
       }
 
       render() {
-        const styles = {
-            errorStyle: {
-                color: white500,
-            },
-            underlineStyle: {
-                borderColor: white500,
-            },
-            floatingLabelStyle: {
-                color: white500,
-            },
-            floatingLabelFocusStyle: {
-                color: white500,
-            },
-            margin: 15,
-        };
-        const fieldStyle = {
+        return (           
+            <Container component="main" maxWidth="xs" color="white">
+                <CssBaseline />
+                <div className="container">
+                    <section className='log-in'></section>
 
-        }
-          return (
-            <div>
-            <br/>
-            <MuiThemeProvider>
-                <div>
-                    <AppBar
-                        title="Register"
-                    />
-                    <TextField
-                        type="Name"
-                        hintText="Enter your Name"
-                        floatingLabelText="Name"
-                        onChange={(event, newValue) => this.setState({ name: newValue })}
-                        floatingLabelStyle={styles.floatingLabelStyle}
-                        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                        underlineFocusStyle={styles.underlineStyle}
-                        hintStyle={styles.errorStyle}
-                        inputStyle={styles.errorStyle}                        
-                        />
-                    <br />
-                    <TextField
-                        type="Email"
-                        hintText="Enter your email"
-                        floatingLabelText="Email"
-                        onChange={(event, newValue) => this.setState({ email: newValue })}
-                        floatingLabelStyle={styles.floatingLabelStyle}
-                        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                        underlineFocusStyle={styles.underlineStyle}
-                        hintStyle={styles.errorStyle}
-                        inputStyle={styles.errorStyle}                        
-                        />
-                    <br />
-                    <TextField
-                        type="Password"
-                        hintText="Enter your password"
-                        floatingLabelText="Password"
-                        onChange={(event, newValue) => this.setState({ password: newValue })}
-                        floatingLabelStyle={styles.floatingLabelStyle}
-                        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                        underlineFocusStyle={styles.underlineStyle}
-                        hintStyle={styles.errorStyle}
-                        inputStyle={styles.errorStyle}                        
-                        />
-                    <br />
-                    <TextField
-                        type="Password"
-                        hintText="Confirm password"
-                        floatingLabelText="Confirm password"
-                        onChange={(event, newValue) => this.setState({ confirmPass: newValue })}
-                        floatingLabelStyle={styles.floatingLabelStyle}
-                        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                        underlineFocusStyle={styles.underlineStyle}
-                        hintStyle={styles.errorStyle}
-                        inputStyle={styles.errorStyle}                        
-                        />
-                    <br />
-                    <RaisedButton label="Submit" primary={true} style={styles.margin} onClick={(event) => this.handleSubmit(event)} />
+                    <Typography component="h1" variant="h5">
+                    Register
+                    </Typography>
+                    <form noValidate>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Name"
+                                name="name"
+                                color="primary"
+                                type="text" 
+                                onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            color="primary"
+                            type="text" 
+                            onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            color="primary"
+                            onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="confirm-password"
+                                label="Confirm password"
+                                type="password"
+                                id="confirm-password"
+                                color="primary"
+                                onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <Button
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleSubmit}
+                        >
+                        Sign Up
+                        </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Link href="/login" variant="body2">
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
+                    </form>
                 </div>
-            </MuiThemeProvider>
-            </div>
-
-        );
-      }
+            </Container>
+        ); 
+    }
 
 }
 
-export default NameForm;
+export default RegisterForm;;

@@ -1,10 +1,15 @@
 import React from 'react';
 import firebase from '../firebase.js';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import {white500} from 'material-ui/styles/colors';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 
 class Login extends React.Component {
@@ -28,9 +33,11 @@ class Login extends React.Component {
     }
 
     handleLogin(event) {
+        console.log(this.state.email);
+        console.log(this.state.password);
+
         try {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
-                
                 console.log("Logged in ", user);
                 
             });
@@ -72,64 +79,85 @@ class Login extends React.Component {
     }
 
     render() {
-        const styles = {
-            errorStyle: {
-                color: white500,
-            },
-            underlineStyle: {
-                borderColor: white500,
-            },
-            floatingLabelStyle: {
-                color: white500,
-            },
-            floatingLabelFocusStyle: {
-                color: white500,
-            },
-            margin: 15,
-        };
         return (
-            <div>
-                <br />
-                <MuiThemeProvider>
-                    <div>
-                        <AppBar
-                            title="Login"
-                        />
+            <Container component="main" maxWidth="xs" color="white">
+                <CssBaseline />
+                <div className="container">
+                    <section className='log-in'></section>
+
+                    <Typography component="h1" variant="h5">
+                    Log in
+                    </Typography>
+                    <Grid container spacing={2}>
+                    <form noValidate>
+                        <Grid item xs={12}>
                         <TextField
-                            hintText="Enter your Email"
-                            floatingLabelText="Email"
-                            onChange={(event, newValue) => this.setState({ email: newValue })}
-                            floatingLabelStyle={styles.floatingLabelStyle}
-                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                            underlineFocusStyle={styles.underlineStyle}
-                            hintStyle={styles.errorStyle}
-                            inputStyle={styles.errorStyle}  
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            color="primary"
+                            type="text"
+                            onChange={this.handleChange}
                             />
-                        <br />
+                        </Grid>
+                        <Grid item xs={12}>
                         <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="password"
+                            label="Password"
+                            name="password"
                             type="password"
-                            hintText="Enter your Password"
-                            floatingLabelText="Password"
-                            onChange={(event, newValue) => this.setState({ password: newValue })}
-                            floatingLabelStyle={styles.floatingLabelStyle}
-                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                            underlineFocusStyle={styles.underlineStyle}
-                            hintStyle={styles.errorStyle}
-                            inputStyle={styles.errorStyle}
+                            autoComplete="current-password"
+                            color="primary"
+                            onChange={this.handleChange}
                             />
-                        <br />
-                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLogin(event)} />
-                        <RaisedButton label="Test" primary={true} style={style} onClick={(event) => this.isLoggedIn(event)} />
-                        <RaisedButton label="Logout" primary={true} style={style} onClick={(event) => this.handleLogout(event)} />
-                    </div>
-                </MuiThemeProvider>
+                        </Grid>
+                    </form>
+
+                        <Grid item xs={12}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(event) => this.handleLogin(event)}
+                            >
+                                Log in
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(event) => this.handleLogout(event)}
+                            >
+                                Log out
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(event) => this.isLoggedIn(event)}
+                            >
+                            Test
+                            </Button>
+                        </Grid>
+                    </Grid>
             </div>
+            </Container>
         );
     }
 }
-
-const style = {
-    margin: 15,
-};
 
 export default Login;
