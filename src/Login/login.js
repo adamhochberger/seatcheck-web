@@ -88,8 +88,8 @@ class Login extends React.Component {
                     <Typography component="h1" variant="h5">
                     Log in
                     </Typography>
-                    <Grid container spacing={2}>
                     <form noValidate>
+                    <Grid container spacing={2}>
                         <Grid item xs={12}>
                         <TextField
                             variant="outlined"
@@ -118,7 +118,6 @@ class Login extends React.Component {
                             onChange={this.handleChange}
                             />
                         </Grid>
-                    </form>
 
                         <Grid item xs={12}>
                             <Button
@@ -154,6 +153,7 @@ class Login extends React.Component {
                             </Button>
                         </Grid>
                     </Grid>
+                    </form>
             </div>
             </Container>
         );
