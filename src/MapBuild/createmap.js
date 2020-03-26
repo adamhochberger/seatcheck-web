@@ -29,7 +29,7 @@ class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = [];
+    this.users = ['Barry Allen', "Clark Kent", "John"];
   }
 }
 
@@ -133,7 +133,7 @@ class buildMapView extends React.Component {
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
 
-        let setDoc = firebase.firestore().collection('data').doc('one').set(JSON.parse( JSON.stringify(this.state.grid)));
+        let setDoc = firebase.firestore().collection('data').doc('marston').set(JSON.parse( JSON.stringify(this.state.grid)));
         
         let cityRef = firebase.firestore().collection('data').doc('one');
         let getDoc = cityRef.get()

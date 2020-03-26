@@ -1,6 +1,10 @@
 import React from 'react';
 import MyFilteringComponent from '../filter.js';
 import { Grid } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import firebase from '../firebase.js';
+
 
 /* TODO
   There should be a prepage, asking the user to enter the secret code for map
@@ -16,7 +20,11 @@ class CurrentUser {
       this.friends = ['John','Blake'];
   }
 }
-
+class Container {
+  constructor() {
+    this.array = [];
+  }
+}
 class Square {
   constructor() {
     this.type = 'O';
@@ -29,34 +37,55 @@ class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'O', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"]};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"], code:""};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
-        this.submitMap = this.submitMap.bind(this);        
+        this.getMapFromCode = this.getMapFromCode.bind(this);        
         this.getGridData = this.getGridData.bind(this);        
 
         
+
         const initializeGrid = () => {
+          this.state.grid = new Container();
+  
           for (let i = 0; i < 10; i++) {
-            this.state.grid.push([]);
+            let container = new Container();
+            this.state.grid.array.push(container);
             for (let j = 0; j < 10; j++){
               var square = new Square();
-              this.state.grid[i].push(square);
+              this.state.grid.array[i].array.push(square);
             }
           }
         };
+          
         initializeGrid();
 
       }
 
       //Code here to send current grid layout to firebase under user credentials
-      submitMap(event) {
-        //this.state.curr = "w";
-        this.setState({
-            grid: this.state.grid, 
-            curr: "w", 
-            currentUser: this.state.currentUser,
-            peopleSeated: this.state.peopleSeated
-          })
+      getMapFromCode(event) {
+        let map = firebase.firestore().collection('data').doc(this.state.code);
+
+        let getDoc = map.get()
+        .then(doc => {
+          if (!doc.exists) {
+            console.log('No such document!');
+          } 
+          else {
+            console.log('Document data:', doc.data());
+            this.setState({
+              grid: doc.data()
+            });
+          }
+        })
+        .catch(err => {
+          console.log('Error getting document', err);
+        });
+
+      }
+
+      updateCode = (event) => {
+        var newCode = event.target.value;
+        this.setState({code: newCode});
       }
       //updates point based on the location the user clicks on the grid
       displayFriendsOnSelect(event) {
@@ -67,10 +96,10 @@ class ViewMap extends React.Component {
             grid: this.state.grid, 
             curr: this.state.curr, 
             currentUser: new CurrentUser(), 
-            peopleSeated: this.state.grid[row][col].users
+            peopleSeated: this.state.grid.array[row].array[col].users
           });
 
-        this.state.peopleSeated = this.state.grid[row][col].users;
+        this.state.peopleSeated = this.state.grid.array[row].array[col].users;
         this.setState(this.state.peopleSeated);
       }
       //Sends data from parent to child
@@ -81,11 +110,16 @@ class ViewMap extends React.Component {
       }
       render() {  
         return (
+
           <div>
                 <h1>View Map</h1>
                 <label>
                   Example Viewing Map:
                 </label>
+                <Input placeholder="Enter map password to join one" onChange={this.updateCode} inputProps={{ 'aria-label': 'description' }} />
+                <Button variant="contained" color="secondary" onClick={this.getMapFromCode}>
+                        Submit
+                </Button>
                 <Grid 
                 container
                 direction="row"
@@ -107,9 +141,9 @@ class ViewMap extends React.Component {
                       <Grid item>
                         <table>
                           {
-                            this.state.grid.map((row, index) => (
+                            this.state.grid.array.map((row, index) => (
                               <tr key={index} id="row">
-                                {row.map( (cellContent,colIndex) => 
+                                {row.array.map( (cellContent,colIndex) => 
                                   <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
                               </tr>
                             ))
