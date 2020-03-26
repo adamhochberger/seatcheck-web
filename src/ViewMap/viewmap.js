@@ -91,8 +91,25 @@ class ViewMap extends React.Component {
                 direction="row"
                 justify="center"
                 alignItems="center">
-                  <Grid item>
-                  <h4>People Sitting Here:</h4>
+                <Grid item>
+                <table>
+                    {
+                    this.state.grid.map((row, index) => (
+                        <tr key={index} id="row">
+                        {row.map( (cellContent,colIndex) => 
+                            <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
+                        </tr>
+                    ))
+                    }
+                </table>
+                </Grid>
+                <Grid
+                justify="center"
+                direction="column"
+                spacing={4}
+                >
+                <h4>People Sitting Here:</h4><br></br>
+                <Grid>
                   <table>
                     {
                       this.state.peopleSeated.map((person, index) => (
@@ -102,29 +119,11 @@ class ViewMap extends React.Component {
                       ))
                     }
                   </table>
-
-                      </Grid>
-                      <Grid item>
-                        <table>
-                          {
-                            this.state.grid.map((row, index) => (
-                              <tr key={index} id="row">
-                                {row.map( (cellContent,colIndex) => 
-                                  <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
-                              </tr>
-                            ))
-                          }
-                        </table>
-                      </Grid>
-                  </Grid>
-
-                    <br>
-                    </br>
-
-
-            <h2>Your Friends:</h2>
-            <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} hasFriends={false}/>
-
+                </Grid>
+                <h2>Your Friends:</h2>
+                <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} hasFriends={false}/>
+                </Grid>
+                </Grid>
           </div>   
           );
         }

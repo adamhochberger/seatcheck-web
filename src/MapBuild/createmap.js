@@ -139,44 +139,18 @@ class buildMapView extends React.Component {
                 <br>
                 </br>
                 <Grid 
-                container
-                direction="row"
-                justify="center"
-                alignItems="center">
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="column"
-                      justify="center"
-                      alignItems="center"
-                      spacing={1}
-                    >
-                    <Button variant="contained" color="primary" onClick={this.changeToDefault} disabled={this.state.disabledButtons[0]}>
-                        Undo
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={this.changeToWall} disabled={this.state.disabledButtons[1]}>
-                        Wall
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={this.changeToDoor} disabled={this.state.disabledButtons[2]}>
-                        Door
-                    </Button>
-                    <Button variant="contained" color="primary"  onClick={this.changeToTable} disabled={this.state.disabledButtons[3]}>
-                        Table
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={this.changeToElevator} disabled={this.state.disabledButtons[4]}>
-                        Elevator
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={this.changeToStairs} disabled={this.state.disabledButtons[5]}>
-                        Stairs
-                    </Button>
-                    </Grid>
-                  </Grid>
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
 
                   <Grid item>  
                                     
-                    <label onClick={this.submitMap}>
+                    <Button variant="contained" color="primary" onClick={this.submitMap} disabled={this.state.disabledButtons[5]}>
                       Submit
-                    </label>
+                    </Button>
+                    
                     <table>
                       {
                         this.state.grid.map((row, index) => (
@@ -187,11 +161,47 @@ class buildMapView extends React.Component {
                         ))
                       }
                     </table>
+                 </Grid>
+                 <Grid>
+                    <Grid item xs={12}
+                     direction="row"   
+                    >
+                        <Button variant="contained" color="primary" onClick={this.changeToDefault} disabled={this.state.disabledButtons[0]}>
+                            Undo
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={this.changeToWall} disabled={this.state.disabledButtons[1]}>
+                            Wall
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={this.changeToDoor} disabled={this.state.disabledButtons[2]}>
+                            Door
+                        </Button>
+                        <Button variant="contained" color="primary"  onClick={this.changeToTable} disabled={this.state.disabledButtons[3]}>
+                            Table
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={this.changeToElevator} disabled={this.state.disabledButtons[4]}>
+                            Elevator
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={this.changeToStairs} disabled={this.state.disabledButtons[5]}>
+                            Stairs
+                        </Button>
+                    </Grid>
+                    <Grid>
+                        <br>
+                        </br>
+                        <h2>Your Friends:</h2>
+                        <table>
+                        {
+                            this.state.currentUser.friends.map((friend, index) => (
+                            <tr justify="center" key={index} id="row">
+                                {friend}
+                            </tr>
+                            ))
+                        }
+                        </table>
+                    </Grid>
                   </Grid>
+                  
 
-                  <Grid item sm>
-                    
-                  </Grid>
                 </Grid>
 
 
@@ -201,18 +211,7 @@ class buildMapView extends React.Component {
                 </ol>
             */}
 
-                    <br>
-                    </br>
-              <h2>Your Friends:</h2>
-            <table>
-              {
-                this.state.currentUser.friends.map((friend, index) => (
-                  <tr key={index} id="row">
-                    {friend}
-                  </tr>
-                ))
-              }
-            </table>
+            
           </div>   
           );
         }

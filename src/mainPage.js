@@ -23,14 +23,9 @@ class MainPage extends React.Component {
               <p>
                 Welcome to Social Compass.
               </p>
-              <img src={logo2} alt="logo" />
 
-              </header>
-              <Login></Login>
+            </header>
             </div>
-            
-
-            <MyFilteringComponent content={users} />
           </Router>
         );
       }
