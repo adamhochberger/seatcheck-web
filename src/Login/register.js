@@ -7,6 +7,8 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import {storage} from '../firebase.js';
+
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -15,11 +17,25 @@ class RegisterForm extends React.Component {
             name: '',
             email: '',
             password: '',
-            confirmPass: ''
+            confirmPass: '',
+            proPic: null,
+            url: ''
         };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImage = this.handleImage.bind(this);
+      }
+
+      handleImage = e => {
+          if(e.target.files[0]) {
+              const proPic = e.target.files[0];
+              console.log(proPic);
+             /*this.setState({
+                 proPic: image
+             });*/
+             this.setState(() => ({proPic}));
+          }
       }
     
       handleChange(event) {
@@ -46,6 +62,26 @@ class RegisterForm extends React.Component {
         } catch (error) {
             console.log(error.toString());
         }
+        
+
+        
+        const image = this.state.proPic;
+        //console.log(image);
+        // eslint-disable-next-line no-template-curly-in-string
+        const uploadTask = storage.ref(`${this.state.user}/${image.name}`).put(image);
+        uploadTask.on('state_changed' ,
+        (snapshot) => {
+
+        },
+        (error) =>{
+            console.log(error);
+        },
+        () => {
+            /*storage.ref(this.state.user).child(image.name).getDownloadUrl.then(url => {
+                console.log(url);
+            })*/
+        });
+        
         event.preventDefault();
         
       }
@@ -115,6 +151,7 @@ class RegisterForm extends React.Component {
                             />
                         </Grid>
                         <Grid item xs={12}>
+                        <input type = "file" onChange={this.handleImage}/>
                         <Button
                             type="button"
                             fullWidth
@@ -123,8 +160,9 @@ class RegisterForm extends React.Component {
                             onClick={this.handleSubmit}
                         >
                         Sign Up
-                        </Button>
-                        </Grid>
+                        </Button> 
+                        </Grid> 
+                        
                     </Grid>
                     <Grid container justify="flex-end">
                         <Grid item>
