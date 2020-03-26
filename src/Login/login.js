@@ -140,17 +140,6 @@ class Login extends React.Component {
                                 Log out
                             </Button>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                type="button"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                onClick={(event) => this.isLoggedIn(event)}
-                            >
-                            Test
-                            </Button>
-                        </Grid>
                     </Grid>
                     </form>
             </div>
