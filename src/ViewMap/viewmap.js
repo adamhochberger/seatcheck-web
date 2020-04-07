@@ -63,11 +63,16 @@ class ViewMap extends React.Component {
 
       //Code here to send current grid layout to firebase under user credentials
       getMapFromCode(event) {
+        if(this.state.code == ""){
+          alert("Please enter a code");
+          return;
+        }
         let map = firebase.firestore().collection('data').doc(this.state.code);
 
         let getDoc = map.get()
         .then(doc => {
           if (!doc.exists) {
+            alert("Error: Doesn't Exist");
             console.log('No such document!');
           } 
           else {
@@ -103,6 +108,7 @@ class ViewMap extends React.Component {
         this.setState(this.state.peopleSeated);
       }
       //Sends data from parent to child
+      //Iterates through graph, finding friends who are sitting there
       getGridData(i,j,val){
         this.state.grid[parseInt(i)][parseInt(j)].type = val;
         this.setState(this.state.grid);
@@ -114,7 +120,7 @@ class ViewMap extends React.Component {
           <div>
                 <h1>View Map</h1>
                 <label>
-                  Example Viewing Map:
+                  Enter Code to View Map:
                 </label>
                 <Input placeholder="Enter map password to join one" onChange={this.updateCode} inputProps={{ 'aria-label': 'description' }} />
                 <Button variant="contained" color="secondary" onClick={this.getMapFromCode}>

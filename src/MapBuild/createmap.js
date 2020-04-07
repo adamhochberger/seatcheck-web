@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import firebase from '../firebase.js';
-
+import Input from '@material-ui/core/Input';
 /*
 TO DO
   Add a remove button
@@ -23,6 +23,7 @@ class CurrentUser {
 class Container {
   constructor() {
     this.array = [];
+    this.code = [];
   }
 }
 class Square {
@@ -37,7 +38,7 @@ class buildMapView extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false]};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false], submitCode: ''};
         this.setPoint = this.setPoint.bind(this);
         this.changeToDefault = this.changeToDefault.bind(this);        
         this.changeToWall = this.changeToWall.bind(this);        
@@ -48,7 +49,6 @@ class buildMapView extends React.Component {
         this.submitMap = this.submitMap.bind(this);        
         this.resetGrid = this.resetGrid.bind(this);
         this.resetGrid2 = this.resetGrid2.bind(this);
-
         this.resetGrid3 = this.resetGrid3.bind(this);
 
 
@@ -130,10 +130,13 @@ class buildMapView extends React.Component {
 
 
       }
+      updateCode = (event) => {
+        var newCode = event.target.value;
+        this.setState({submitCode: newCode});
+      }
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
-
-        let setDoc = firebase.firestore().collection('data').doc('marston').set(JSON.parse( JSON.stringify(this.state.grid)));
+        let setDoc = firebase.firestore().collection('data').doc(this.state.submitCode).set(JSON.parse( JSON.stringify(this.state.grid)));
         
         let cityRef = firebase.firestore().collection('data').doc('one');
         let getDoc = cityRef.get()
@@ -218,6 +221,8 @@ class buildMapView extends React.Component {
                 </br>
                 <br>
                 </br>
+                <Input placeholder="Enter Password Code" onChange={this.updateCode} inputProps={{ 'aria-label': 'description' }} />
+
                 <Grid 
                 container
                 direction="row"

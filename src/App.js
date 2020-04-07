@@ -18,14 +18,20 @@ import {
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: 'login', toggle:true};
+        this.state = {value: 'login', toggle:true, currentUser:undefined};
         this.handleClick = this.handleClick.bind(this);
         this.loginSwitch = this.loginSwitch.bind(this);
         this.viewMapSwitch = this.viewMapSwitch.bind(this);
         this.buildMapSwitch = this.buildMapSwitch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-      }
+        this.getCurrentUser = this.getCurrentUser .bind(this);        
 
+      }
+      getCurrentUser(user){
+        console.log("Hello from App")
+        this.setState({currentUser:user});
+        console.log(this.state.currentUser);
+      }
       handleChange(event) {
         this.setState({value: event.target.value});
       }
@@ -55,7 +61,6 @@ class App extends React.Component {
         }));
       }
       
-
       render() {
         const li = [
             {
@@ -80,8 +85,9 @@ class App extends React.Component {
                 text: "Login"
             }
         ];
-
-          return (
+        
+        var oldState = this;
+        return (
             <div className="App">
                 <Router>
                     <header className="App-header">
@@ -96,6 +102,11 @@ class App extends React.Component {
                             </ul>
                         </div>  
                         <div>
+                          {this.state.currentUser != undefined &&
+                              <p>
+                                Hello {this.state.currentUser.user.email}
+                                </p>
+                          }
                             <Switch>
                             <Route exact path= "/mainPage">
                                 <MainPage></MainPage>
@@ -110,7 +121,7 @@ class App extends React.Component {
                                 <ViewMap></ViewMap>
                             </Route>
                             <Route path= "/login">
-                                <Login></Login>
+                                <Login sendUser={this.getCurrentUser}></Login>
                             </Route>
                             </Switch>
                         </div>

@@ -35,8 +35,10 @@ class RegisterForm extends React.Component {
                 firebase.firestore().collection('users').doc(user.user.uid).set({
                     uid: user.user.uid,
                     email: enteredEmail,
-                    joinedMaps: [],
-                    createdMaps: []
+                    joinedMaps: ['test'],
+                    createdMaps: ['marston']
+                    //About Me Field
+                    //Occupation Field
                 }).then(function(){
                   console.log("Document successfully written!")
                 }).catch(function(error){
