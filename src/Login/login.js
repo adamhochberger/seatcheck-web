@@ -30,31 +30,37 @@ class Login extends React.Component {
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
-
+    moveDataToParent(user){
+        this.props.sendUser(user.user.uid);
+    }
     handleLogin(event) {
-        console.log(this.state.email);
-        console.log(this.state.password);
-
+        let oldState = this;
         try {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
-                console.log("Logged in ", user);
-                
+                console.log("Logged in ", user.user.uid);
+                oldState.setState({ uid: user.user.uid });
+                //oldState.props.sendUser(user);
+
+
+                //this.this.moveDataToParent(user)
             });
-            
+            //console.log(this.state.uid);
         } catch(error){
             console.log(error.toString());
             return;
         }
         event.preventDefault();
-
     }
   
     isLoggedIn(event) {
-        
+        //let map = firebase.firestore().collection('users').doc(CurrentUserID);
+        //console.log(map)
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               //this.setState({ user });
               console.log(user);
+              //this.props.sendUser(user);
               //this.setState({loggedIn:true});
               this.setState(state => ({
                 loggedIn: true
@@ -129,17 +135,7 @@ class Login extends React.Component {
                                 Log in
                             </Button>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                type="button"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                onClick={(event) => this.handleLogout(event)}
-                            >
-                                Log out
-                            </Button>
-                        </Grid>
+                        
                     </Grid>
                     </form>
             </div>

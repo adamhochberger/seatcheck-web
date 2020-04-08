@@ -31,6 +31,7 @@ import {
     Route,
     Link as Linky
   } from "react-router-dom";
+import firebase from '../firebase.js';
 import RegisterForm from '../Login/register.js';
 import ViewMap from '../ViewMap/viewmap.js';
 import Login from '../Login/login.js';
@@ -132,9 +133,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
+    isLoggedIn();
   };
   const handleDrawerClose = () => {
     setOpen(false);
@@ -150,11 +153,40 @@ export default function Dashboard() {
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
+    isLoggedIn();
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isLoggedIn = () => {
+    //let map = firebase.firestore().collection('users').doc(CurrentUserID);
+    //console.log(map)
+
+    var temp = firebase.auth().currentUser;
+    if (temp) {
+        //this.setState({ user });
+        console.log(temp);
+        //this.props.sendUser(user);
+        //this.setState({loggedIn:true});
+        setLoggedIn(true);
+        
+    } else {
+        setLoggedIn(false);
+    }
+        
+    
+  }
+  const handleLogout= event => {
+    firebase.auth().signOut().then(function() {
+        console.log('Signed Out');
+      }, function(error) {
+        console.error('Sign Out Error', error);
+      });
+    event.preventDefault();
+}
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -192,8 +224,16 @@ export default function Dashboard() {
             open={openZ}
             onClose={handleClose}
             >
-            <MenuItem onClick={handleClose} component="a" href="/login">Login</MenuItem>
-            <MenuItem onClick={handleClose} component="a" href="/register">Register</MenuItem>
+                {loggedIn==false
+                ? <div>
+                    <MenuItem onClick={handleClose} component="a" href="/login">Login</MenuItem>
+                    <MenuItem onClick={handleClose} component="a" href="/register">Register</MenuItem>
+                 </div>
+                :<div>
+                    <MenuItem onClick={handleClose} component="a" href="/mainPage">Profile</MenuItem>
+                    <MenuItem onClick={(event) => {handleLogout(event); handleClose(); }} >Logout</MenuItem>
+                </div>
+            }
             </Menu>
         </Toolbar>
       </AppBar>

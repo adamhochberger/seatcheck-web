@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-
+import firebase from '../firebase.js';
+import Input from '@material-ui/core/Input';
 /*
 TO DO
   Add a remove button
@@ -19,12 +20,17 @@ class CurrentUser {
       this.friends = ['John','Blake'];
   }
 }
-
+class Container {
+  constructor() {
+    this.array = [];
+    this.code = [];
+  }
+}
 class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = [];
+    this.users = ['Barry Allen', "Clark Kent", "John"];
   }
 }
 
@@ -32,7 +38,7 @@ class buildMapView extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: [], curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false]};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), disabledButtons:[false,false,false,false,false,false], submitCode: ''};
         this.setPoint = this.setPoint.bind(this);
         this.changeToDefault = this.changeToDefault.bind(this);        
         this.changeToWall = this.changeToWall.bind(this);        
@@ -41,17 +47,25 @@ class buildMapView extends React.Component {
         this.changeToElevator = this.changeToElevator.bind(this); 
         this.changeToStairs = this.changeToStairs.bind(this);        
         this.submitMap = this.submitMap.bind(this);        
+        this.resetGrid = this.resetGrid.bind(this);
+        this.resetGrid2 = this.resetGrid2.bind(this);
+        this.resetGrid3 = this.resetGrid3.bind(this);
 
-        
+
         const initializeGrid = () => {
+          this.state.grid = new Container();
+  
           for (let i = 0; i < 10; i++) {
-            this.state.grid.push([]);
+            let container = new Container();
+            this.state.grid.array.push(container);
             for (let j = 0; j < 10; j++){
               var square = new Square();
-              this.state.grid[i].push(square);
+              this.state.grid.array[i].array.push(square);
             }
           }
         };
+          
+
         initializeGrid();
 
       }
@@ -66,21 +80,89 @@ class buildMapView extends React.Component {
               if( name in this.state.grid[i][j].users  ){
 
               }
-          }
+          } 
         }
 
       }
       */
+      resetGrid(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 10; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 10; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
 
+
+      }
+      resetGrid2(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 15; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 15; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
+
+
+      }
+      resetGrid3(event){
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < 18; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < 18; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
+
+
+      }
+      updateCode = (event) => {
+        var newCode = event.target.value;
+        this.setState({submitCode: newCode});
+      }
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
-        this.state.curr = "w";
+        let setDoc = firebase.firestore().collection('data').doc(this.state.submitCode).set(JSON.parse( JSON.stringify(this.state.grid)));
+        
+        let cityRef = firebase.firestore().collection('data').doc('one');
+        let getDoc = cityRef.get()
+          .then(doc => {
+            if (!doc.exists) {
+              console.log('No such document!');
+            } else {
+              console.log('Document data:', doc.data());
+            }
+          })
+          .catch(err => {
+            console.log('Error getting document', err);
+          });
+
+
+          //Add map custom key into user object's list of maps
+          //Update user db entry
+
+
+        
       }
       //updates point based on the location the user clicks on the grid
       setPoint(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
-        this.state.grid[row][col].type = this.state.curr;
+        this.state.grid.array[row].array[col].type = this.state.curr;
         this.setState(this.state.grid);
       }
       //Buttons to switch user selection
@@ -132,12 +214,15 @@ class buildMapView extends React.Component {
           <div>
               <h1>Create Map</h1>
                 <label>
-                  Select Areas to fill with Walls and Tables (Choose an option):
+                  Select Areas to fill with Walls and Tables (Enter Grid Size to Change):
                 </label>
+
                 <br>
                 </br>
                 <br>
                 </br>
+                <Input placeholder="Enter Password Code" onChange={this.updateCode} inputProps={{ 'aria-label': 'description' }} />
+
                 <Grid 
                     container
                     direction="row"
@@ -146,16 +231,24 @@ class buildMapView extends React.Component {
                 >
 
                   <Grid item>  
-                                    
-                    <Button variant="contained" color="primary" onClick={this.submitMap} disabled={this.state.disabledButtons[5]}>
-                      Submit
+                                  
+                    <Button variant="contained" color="secondary" onClick={this.submitMap}>
+                        Submit
                     </Button>
-                    
+                    <Button variant="contained" color="primary" onClick={this.resetGrid}>
+                        10x10
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.resetGrid2}>
+                        15x15
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.resetGrid3}>
+                        18x18
+                    </Button>
                     <table>
                       {
-                        this.state.grid.map((row, index) => (
+                        this.state.grid.array.map((row, index) => (
                           <tr key={index} id="row">
-                            {row.map( (cellContent,colIndex) => 
+                            {row.array.map( (cellContent,colIndex) => 
                               <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
                           </tr>
                         ))
