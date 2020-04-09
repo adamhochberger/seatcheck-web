@@ -180,7 +180,8 @@ export default function Dashboard() {
   }
   const handleLogout= event => {
     firebase.auth().signOut().then(function() {
-        console.log('Signed Out');
+        alert('Successfully signed out!');
+        window.location.replace("/");
       }, function(error) {
         console.error('Sign Out Error', error);
       });
@@ -230,7 +231,7 @@ export default function Dashboard() {
                     <MenuItem onClick={handleClose} component="a" href="/register">Register</MenuItem>
                  </div>
                 :<div>
-                    <MenuItem onClick={handleClose} component="a" href="/mainPage">Profile</MenuItem>
+                    <MenuItem onClick={handleClose} component="a" href="/">Profile</MenuItem>
                     <MenuItem onClick={(event) => {handleLogout(event); handleClose(); }} >Logout</MenuItem>
                 </div>
             }
@@ -263,13 +264,13 @@ export default function Dashboard() {
               <Paper className={fixedHeightPaper}>
               <Router>
                   <Switch>
-                  <Route exact path= "/mainPage">
+                  <Route exact path= "/">
                       <MainPage></MainPage>
                   </Route>
                   <Route path= "/register">
                       <RegisterForm></RegisterForm>
                   </Route>
-                  <Route path= "/build">
+                  <Route path= "/create">
                       <BuildMapView></BuildMapView>
                   </Route>
                   <Route path= "/view">
