@@ -29,7 +29,9 @@ class MainPage extends React.Component {
                     <Button variant="contained" color="primary" href="/view">
                             View map
                     </Button>
-                
+                    <Button variant="contained" color="primary" href="/maps">
+                            List of your maps
+                    </Button>
                 </Grid>
             </div>
         );
