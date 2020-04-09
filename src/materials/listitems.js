@@ -12,6 +12,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import GridOnIcon from '@material-ui/icons/GridOn';
+import MapIcon from '@material-ui/icons/Map';
 
 import {
     BrowserRouter as Router,
@@ -41,5 +42,13 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="View Map" />
     </ListItem>
+    
+    <ListItem button component="a" href="/maps">
+      <ListItemIcon>
+        <MapIcon />
+      </ListItemIcon>
+      <ListItemText primary="My Maps" />
+    </ListItem>
+
   </div>
 );

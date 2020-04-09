@@ -37,6 +37,7 @@ import ViewMap from '../ViewMap/viewmap.js';
 import Login from '../Login/login.js';
 import BuildMapView from '../MapBuild/createmap.js';
 import MainPage from '../mainPage.js';
+import ListMaps from '../MapBuild/listMaps.js'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -167,6 +168,7 @@ export default function Dashboard() {
     var temp = firebase.auth().currentUser;
     if (temp) {
         //this.setState({ user });
+        console.log("From navBar")
         console.log(temp);
         //this.props.sendUser(user);
         //this.setState({loggedIn:true});
@@ -278,6 +280,9 @@ export default function Dashboard() {
                   </Route>
                   <Route path= "/login">
                       <Login></Login>
+                  </Route>
+                  <Route path= "/maps">
+                      <ListMaps></ListMaps>
                   </Route>
                   </Switch>
                 </Router>
