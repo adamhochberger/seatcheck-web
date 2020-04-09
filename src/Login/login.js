@@ -24,7 +24,6 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.isLoggedIn = this.isLoggedIn.bind(this);
-        this.handleLogout = this.handleLogout.bind(this)
     }
 
     handleChange(event) {
@@ -37,9 +36,11 @@ class Login extends React.Component {
         let oldState = this;
         try {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
+                alert("Successfully logged in!");
                 console.log("Logged in ", user.user.uid);
                 oldState.setState({ uid: user.user.uid });
                 //oldState.props.sendUser(user);
+                window.location.replace("/");
 
 
                 //this.this.moveDataToParent(user)
@@ -73,16 +74,6 @@ class Login extends React.Component {
             
         });
     }
-  
-    handleLogout(event) {
-        firebase.auth().signOut().then(function() {
-            console.log('Signed Out');
-          }, function(error) {
-            console.error('Sign Out Error', error);
-          });
-        event.preventDefault();
-    }
-
     render() {
         return (
             <Container component="main" maxWidth="xs" color="white">
@@ -130,7 +121,7 @@ class Login extends React.Component {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                onClick={(event) => this.handleLogin(event)}
+                                onClick={(event) => {this.handleLogin(event)}}
                             >
                                 Log in
                             </Button>
