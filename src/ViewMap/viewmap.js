@@ -8,7 +8,6 @@ import firebase from '../firebase.js';
 
 /* TODO
   There should be a prepage, asking the user to enter the secret code for map
-  
   Change filter so a person searched pops up as a person emoji or something
 */
 
@@ -196,6 +195,7 @@ class ViewMap extends React.Component {
                 direction="row"
                 justify="center"
                 alignItems="center">
+
                   <Grid item>
 
                   <Button variant="contained" color="primary" onClick={this.addUserToSeat}>
@@ -222,6 +222,7 @@ class ViewMap extends React.Component {
 
                       </Grid>
                       <Grid item>
+
                         <table>
                           {
                             this.state.grid.array.map((row, index) => (
@@ -232,8 +233,20 @@ class ViewMap extends React.Component {
                             ))
                           }
                         </table>
-                      </Grid>
+                    </Grid>
+                    <Grid item>
+                        <h4>People Sitting Here:</h4>
+                        <table>
+                            {
+                            this.state.peopleSeated.map((person, index) => (
+                                <tbody key={index} id="row">
+                                {person}
+                                </tbody>
+                            ))
+                            }
+                        </table>
                   </Grid>
+                </Grid>
 
                     <br>
                     </br>

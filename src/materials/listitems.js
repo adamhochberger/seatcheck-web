@@ -24,13 +24,13 @@ import {
 
 export const mainListItems = (
   <div>
-    <ListItem button component="a" href="/mainPage">
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <HomeIcon />
       </ListItemIcon>
       <ListItemText primary="Home Page" />
     </ListItem>
-    <ListItem button component="a" href="/build">
+    <ListItem button component="a" href="/create">
       <ListItemIcon>
         <EditIcon />
       </ListItemIcon>
