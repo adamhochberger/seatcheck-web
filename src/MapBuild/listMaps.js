@@ -32,7 +32,8 @@ class listMapsView extends React.Component {
       removeFromList(event){
 
         var user = firebase.auth().currentUser;
-        var index = event.target.getAttribute("class");
+        var objectToDelete = event.currentTarget.getAttribute('id')
+        //var index = event.target.getAttribute("id");
         let userName = ""
         //Data to grab username from firebase
         const userID = firebase.firestore().collection('users').doc(user.uid);
@@ -44,16 +45,26 @@ class listMapsView extends React.Component {
           } 
           else {
               console.log('Document data:', doc.data());
-              userName = doc.data().name
+              //Deletes from Users Table
+              var all = doc.data();
+              var userMaps = all.createdMaps;
+              var index = userMaps.indexOf(objectToDelete);
+              if (index !== -1) userMaps.splice(index, 1);
               this.setState({
-                  userData: doc.data(),
-                });
-              let temp = this.state.grid.array[this.state.selectedRow].array[this.state.selectedCol].users
+                  userData: all                });
+                alert("Map has been deleted, Refresh to update page");
+
+                firebase.firestore().collection('users').doc(user.uid).update(this.state.userData);
+              //Delete from Map Table
+              
+              let setDoc = firebase.firestore().collection('data').doc(objectToDelete).delete();
+
+                /*
               var index = temp.indexOf(userName);
               if (index !== -1) temp.splice(index, 1);
-              this.setState({peopleSeated: temp});
               //Update Firebase grid
               let setDoc = firebase.firestore().collection('data').doc(this.state.code).update(JSON.parse( JSON.stringify(this.state.grid)));
+              */
           }
           })
           .catch(err => {
@@ -61,16 +72,12 @@ class listMapsView extends React.Component {
           });
       }
 
-      
       render() {  
           var temp = firebase.auth().currentUser;
-          console.log("From ListMap", temp)
           const userID = null
           let maps = null
           let flag = true;
-          console.log(this.state.first, temp)
           if(temp && this.state.first){
-              console.log("Enters")
               const userID = firebase.firestore().collection('users').doc(temp.uid);
               let getDoc = userID.get()
                 .then(doc => {
@@ -108,7 +115,7 @@ class listMapsView extends React.Component {
                         this.state.map_.createdMaps.map((map, index) => (
                         <h1 justify="center" key={index} id="row">
                             {map}
-                            <Button onClick={this.removeFromList} class={index} variant="contained" color="secondary">
+                            <Button  onClick={this.removeFromList} id={map} variant="contained" color="secondary">
                             Delete
                             </Button>
                         </h1>
