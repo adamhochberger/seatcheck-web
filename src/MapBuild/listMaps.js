@@ -76,6 +76,12 @@ class listMapsView extends React.Component {
                         </h1>
                         ))
                     }
+                        <Button variant="contained" color="primary">
+                            Edit
+                        </Button>
+                        <Button variant="contained" color="secondary">
+                            Delete
+                        </Button>
                     </table>
 
                     : <p>Please Login</p>

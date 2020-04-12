@@ -136,6 +136,19 @@ class buildMapView extends React.Component {
       }
       //Code here to send current grid layout to firebase under user credentials
       submitMap(event) {
+        //Gets Current User and updates data to contain a new map code
+        /*
+        var temp = firebase.auth().currentUser;
+        const userID = firebase.firestore().collection('users').doc(temp.uid);
+        let arrUnion = userID.update({
+          createdMaps: admin.firestore.FieldValue.arrayUnion(this.state.submitCode)
+        });
+        */
+        //Begings opening db to submit map
+        if(this.state.submitCode == ""){
+          alert("Please enter a code");
+          return;
+        }
         let setDoc = firebase.firestore().collection('data').doc(this.state.submitCode).set(JSON.parse( JSON.stringify(this.state.grid)));
         
         let cityRef = firebase.firestore().collection('data').doc('one');

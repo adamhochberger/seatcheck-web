@@ -37,10 +37,14 @@ class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), peopleSeated: ['John',"Mark"], code:""};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), peopleSeated: [], code:"", selectedCol:0, selectedRow:0};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.getMapFromCode = this.getMapFromCode.bind(this);        
-        this.getGridData = this.getGridData.bind(this);        
+        this.getGridData = this.getGridData.bind(this);
+        this.addUserToSeat = this.addUserToSeat.bind(this);  
+        this.removeUserFromSeat = this.removeUserFromSeat.bind(this);        
+      
+        
 
         
 
@@ -60,7 +64,66 @@ class ViewMap extends React.Component {
         initializeGrid();
 
       }
+      removeUserFromSeat(event){
+        var user = firebase.auth().currentUser;
+        let userName = ""
+        //Data to grab username from firebase
+          const userID = firebase.firestore().collection('users').doc(user.uid);
+        let getDoc = userID.get()
+          .then(doc => {
+          if (!doc.exists) {
+              alert("Error: Doesn't Exist");
+              console.log('No such document!');
+          } 
+          else {
+              console.log('Document data:', doc.data());
+              userName = doc.data().name
+              this.setState({
+                  userData: doc.data(),
+                });
+              let temp = this.state.grid.array[this.state.selectedRow].array[this.state.selectedCol].users
+              var index = temp.indexOf(userName);
+              if (index !== -1) temp.splice(index, 1);
+              this.setState({peopleSeated: temp});
+              //Update Firebase grid
+              let setDoc = firebase.firestore().collection('data').doc(this.state.code).update(JSON.parse( JSON.stringify(this.state.grid)));
+          }
+          })
+          .catch(err => {
+          console.log('Error getting document', err);
+          });
 
+      }
+      addUserToSeat(event){
+        var user = firebase.auth().currentUser;
+        let userName = ""
+        //Data to grab username from firebase
+          const userID = firebase.firestore().collection('users').doc(user.uid);
+        let getDoc = userID.get()
+          .then(doc => {
+          if (!doc.exists) {
+              alert("Error: Doesn't Exist");
+              console.log('No such document!');
+          } 
+          else {
+              console.log('Document data:', doc.data());
+              userName = doc.data().name
+              this.setState({
+                  userData: doc.data(),
+                });
+              let temp = this.state.grid.array[this.state.selectedRow].array[this.state.selectedCol].users
+              temp.push(userName);
+              this.setState({peopleSeated: temp});
+              //Update Firebase grid
+              let setDoc = firebase.firestore().collection('data').doc(this.state.code).update(JSON.parse( JSON.stringify(this.state.grid)));
+              console.log("saves Grid")
+          }
+          })
+          .catch(err => {
+          console.log('Error getting document', err);
+          });
+
+      }
       //Code here to send current grid layout to firebase under user credentials
       getMapFromCode(event) {
         if(this.state.code == ""){
@@ -87,21 +150,23 @@ class ViewMap extends React.Component {
         });
 
       }
-
+      
       updateCode = (event) => {
         var newCode = event.target.value;
         this.setState({code: newCode});
       }
+      
       //updates point based on the location the user clicks on the grid
       displayFriendsOnSelect(event) {
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
-
         this.setState({
             grid: this.state.grid, 
             curr: this.state.curr, 
             currentUser: new CurrentUser(), 
-            peopleSeated: this.state.grid.array[row].array[col].users
+            peopleSeated: this.state.grid.array[row].array[col].users,
+            selectedCol: col,
+            selectedRow:row
           });
 
         this.state.peopleSeated = this.state.grid.array[row].array[col].users;
@@ -132,14 +197,26 @@ class ViewMap extends React.Component {
                 justify="center"
                 alignItems="center">
                   <Grid item>
+
+                  <Button variant="contained" color="primary" onClick={this.addUserToSeat}>
+                        Add me
+                  </Button>
+                  
+                  <Button variant="contained" color="primary" onClick={this.removeUserFromSeat}>
+                        Remove me
+                  </Button>
                   <h4>People Sitting Here:</h4>
+                  
                   <table>
                     {
                       this.state.peopleSeated.map((person, index) => (
+                        
                         <tbody key={index} id="row">
                           {person}
                         </tbody>
+
                       ))
+                      
                     }
                   </table>
 

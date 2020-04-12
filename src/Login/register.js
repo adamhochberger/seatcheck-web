@@ -29,16 +29,17 @@ class RegisterForm extends React.Component {
     
       handleSubmit(event) {
           const enteredEmail = this.state.email;
+          const enteredName = this.state.name;
+
           try {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(function (user) {
                 console.log("user.uid: ", user.user.uid);
                 firebase.firestore().collection('users').doc(user.user.uid).set({
                     uid: user.user.uid,
                     email: enteredEmail,
-                    joinedMaps: ['test'],
+                    name: enteredName,
                     createdMaps: ['marston']
-                    //About Me Field
-                    //Occupation Field
+                    
                 }).then(function(){
                   console.log("Document successfully written!")
                 }).catch(function(error){
