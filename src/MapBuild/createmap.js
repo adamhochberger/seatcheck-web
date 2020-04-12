@@ -149,19 +149,30 @@ class buildMapView extends React.Component {
           alert("Please enter a code");
           return;
         }
-        let setDoc = firebase.firestore().collection('data').doc(this.state.submitCode).set(JSON.parse( JSON.stringify(this.state.grid)));
+        var newMap = this.state.submitCode;
+        let setDoc = firebase.firestore().collection('data').doc(newMap).set(JSON.parse( JSON.stringify(this.state.grid)));
         
-        let cityRef = firebase.firestore().collection('data').doc('one');
-        let getDoc = cityRef.get()
+        var user = firebase.auth().currentUser;
+        //Data to grab username from firebase
+        const userID = firebase.firestore().collection('users').doc(user.uid);
+        let getDoc = userID.get()
           .then(doc => {
-            if (!doc.exists) {
+          if (!doc.exists) {
+              alert("Error: Doesn't Exist");
               console.log('No such document!');
-            } else {
-              console.log('Document data:', doc.data());
-            }
+          } 
+          else {
+              //userMaps = doc.data().createdMaps
+              this.setState({
+                  userData: doc.data(),
+                });
+              this.state.userData.createdMaps.push(newMap);
+
+              let setDoc = firebase.firestore().collection('users').doc(user.uid).update(this.state.userData);
+          }
           })
           .catch(err => {
-            console.log('Error getting document', err);
+          console.log('Error getting document', err);
           });
 
 

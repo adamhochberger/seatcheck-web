@@ -24,9 +24,44 @@ class listMapsView extends React.Component {
         super(props);
         //Needs to store users and 
         this.state = {currentUser:firebase.auth().currentUser, map_:null,first:true};
+        this.removeFromList = this.removeFromList.bind(this);        
 
       }
 
+
+      removeFromList(event){
+
+        var user = firebase.auth().currentUser;
+        var index = event.target.getAttribute("class");
+        let userName = ""
+        //Data to grab username from firebase
+        const userID = firebase.firestore().collection('users').doc(user.uid);
+        let getDoc = userID.get()
+          .then(doc => {
+          if (!doc.exists) {
+              alert("Error: Doesn't Exist");
+              console.log('No such document!');
+          } 
+          else {
+              console.log('Document data:', doc.data());
+              userName = doc.data().name
+              this.setState({
+                  userData: doc.data(),
+                });
+              let temp = this.state.grid.array[this.state.selectedRow].array[this.state.selectedCol].users
+              var index = temp.indexOf(userName);
+              if (index !== -1) temp.splice(index, 1);
+              this.setState({peopleSeated: temp});
+              //Update Firebase grid
+              let setDoc = firebase.firestore().collection('data').doc(this.state.code).update(JSON.parse( JSON.stringify(this.state.grid)));
+          }
+          })
+          .catch(err => {
+          console.log('Error getting document', err);
+          });
+      }
+
+      
       render() {  
           var temp = firebase.auth().currentUser;
           console.log("From ListMap", temp)
@@ -73,15 +108,13 @@ class listMapsView extends React.Component {
                         this.state.map_.createdMaps.map((map, index) => (
                         <h1 justify="center" key={index} id="row">
                             {map}
+                            <Button onClick={this.removeFromList} class={index} variant="contained" color="secondary">
+                            Delete
+                            </Button>
                         </h1>
                         ))
                     }
-                        <Button variant="contained" color="primary">
-                            Edit
-                        </Button>
-                        <Button variant="contained" color="secondary">
-                            Delete
-                        </Button>
+
                     </table>
 
                     : <p>Please Login</p>

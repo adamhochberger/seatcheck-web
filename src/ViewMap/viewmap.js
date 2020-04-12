@@ -97,7 +97,7 @@ class ViewMap extends React.Component {
         var user = firebase.auth().currentUser;
         let userName = ""
         //Data to grab username from firebase
-          const userID = firebase.firestore().collection('users').doc(user.uid);
+        const userID = firebase.firestore().collection('users').doc(user.uid);
         let getDoc = userID.get()
           .then(doc => {
           if (!doc.exists) {
