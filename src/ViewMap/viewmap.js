@@ -36,7 +36,7 @@ class ViewMap extends React.Component {
     constructor(props) {
         super(props);
         //Needs to store users and 
-        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), peopleSeated: [], code:"", selectedCol:0, selectedRow:0};
+        this.state = {grid: new Container(), curr:'O', currentUser: new CurrentUser(), peopleSeated: [], code:"", selectedCol:0, selectedRow:0,totalMembers:[]};
         this.displayFriendsOnSelect = this.displayFriendsOnSelect.bind(this);     
         this.getMapFromCode = this.getMapFromCode.bind(this);        
         this.getGridData = this.getGridData.bind(this);
@@ -157,6 +157,7 @@ class ViewMap extends React.Component {
       
       //updates point based on the location the user clicks on the grid
       displayFriendsOnSelect(event) {
+        this.getMapMembers();
         var col = event.target.getAttribute("id");
         var row = event.target.getAttribute("class");
         this.setState({
@@ -170,15 +171,43 @@ class ViewMap extends React.Component {
 
         this.state.peopleSeated = this.state.grid.array[row].array[col].users;
         this.setState(this.state.peopleSeated);
+        console.log("On Display", this.state.totalMembers);
+
       }
       //Sends data from parent to child
       //Iterates through graph, finding friends who are sitting there
       getGridData(i,j,val){
-        this.state.grid[parseInt(i)][parseInt(j)].type = val;
+        //console.log(val);
+        this.state.grid.array[parseInt(i)].array[parseInt(j)].type = val;
         this.setState(this.state.grid);
 
       }
+      getMapMembers(){
+        var members = new Set(); 
+        for (let i = 0; i < this.state.grid.array.length; i++) {
+          for (let j = 0; j < this.state.grid.array.length; j++){
+            for(let k = 0; k < this.state.grid.array[i].array[j].users.length; k++){
+              if(!members.has(this.state.grid.array[i].array[j].users[k])){
+                members.add(this.state.grid.array[i].array[j].users[k]);
+              }
+            }
+          }
+        }
+        this.state.totalMembers = [...members];
+        this.setState({totalMembers: [...members]});
+
+
+
+      }
       render() {  
+
+        let myComponent;
+        if(this.state.totalMembers.length != 0) {
+            myComponent = <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.totalMembers} hasFriends={false}/>
+        } else {
+            myComponent = null
+        }
+
         return (
 
           <div>
@@ -252,9 +281,9 @@ class ViewMap extends React.Component {
                     </br>
 
 
-            <h2>Your Friends:</h2>
-            <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.currentUser.friends} hasFriends={false}/>
-
+            <h2>Users in this map:</h2>
+            {myComponent}
+ 
           </div>   
           );
         }
@@ -262,3 +291,4 @@ class ViewMap extends React.Component {
       }
       
 export default ViewMap;
+// this.state.currentUser.friends

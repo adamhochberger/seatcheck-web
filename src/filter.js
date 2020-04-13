@@ -31,6 +31,8 @@ export default class MyFilteringComponent extends React.Component {
     }
 
     showFriendLocation(event){
+      console.log(this.state.items);
+
       if(this.props.grid == null){
         return
       }
@@ -40,7 +42,7 @@ export default class MyFilteringComponent extends React.Component {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++){
           
-          if(this.props.grid[i][j].users.includes(name)){
+          if(this.props.grid.array[i].array[j].users.includes(name)){
               this.demoMethod(i,j);
           }
           
@@ -50,6 +52,7 @@ export default class MyFilteringComponent extends React.Component {
 
     render() {
       var self = this
+      //console.log("From FIlter", this.state.items);
       return (
         <div>
           <form>
