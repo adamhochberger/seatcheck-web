@@ -28,7 +28,7 @@ class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = ['Barry Allen', "Clark Kent", "John"];
+    this.users = [];
   }
 }
 
@@ -65,6 +65,10 @@ class ViewMap extends React.Component {
       }
       removeUserFromSeat(event){
         var user = firebase.auth().currentUser;
+        if(!user){
+          alert("Please login to remove yourself");
+          return 
+        }
         let userName = ""
         //Data to grab username from firebase
           const userID = firebase.firestore().collection('users').doc(user.uid);
@@ -95,6 +99,11 @@ class ViewMap extends React.Component {
       }
       addUserToSeat(event){
         var user = firebase.auth().currentUser;
+        console.log(user);
+        if(!user){
+          alert("Please login to add yourself");
+          return 
+        }
         let userName = ""
         //Data to grab username from firebase
         const userID = firebase.firestore().collection('users').doc(user.uid);
@@ -203,7 +212,7 @@ class ViewMap extends React.Component {
         if(this.state.totalMembers.length != 0) {
             myComponent = <MyFilteringComponent sendGridData={this.getGridData}  grid={this.state.grid} content={this.state.totalMembers} hasFriends={false}/>
         } else {
-            myComponent = null
+            myComponent = <p>Nobody is seated in this map yet!</p>
         }
 
         return (
@@ -236,6 +245,8 @@ class ViewMap extends React.Component {
                   
                   <table>
                     {
+                      this.state.peopleSeated.length!=0 ?
+
                       this.state.peopleSeated.map((person, index) => (
                         
                         <tbody key={index} id="row">
@@ -243,7 +254,7 @@ class ViewMap extends React.Component {
                         </tbody>
 
                       ))
-                      
+                      : <p>This spot is empty!</p>
                     }
                   </table>
 
@@ -269,12 +280,15 @@ class ViewMap extends React.Component {
                         <h4>People Sitting Here:</h4>
                         <table>
                             {
-                            this.state.peopleSeated.map((person, index) => (
-                                <tbody key={index} id="row">
-                                {person}
-                                </tbody>
-                            ))
-                            }
+                              this.state.peopleSeated.length!=0 ?
+
+                              this.state.peopleSeated.map((person, index) => (
+                                    <tbody key={index} id="row">
+                                    {person}
+                                    </tbody>
+                                ))
+                                : <p>This spot is empty!</p>
+                                }
                         </table>
                   </Grid>
                 </Grid>

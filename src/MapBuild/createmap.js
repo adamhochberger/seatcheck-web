@@ -3,6 +3,12 @@ import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import firebase from '../firebase.js';
 import Input from '@material-ui/core/Input';
+import { Select } from '@material-ui/core';
+import { InputLabel } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
+
+
+
 /*
 TO DO
   Add a remove button
@@ -30,7 +36,7 @@ class Square {
   constructor() {
     this.type = 'O';
     this.suit = null;
-    this.users = ['Barry Allen', "Clark Kent", "John"];
+    this.users = [];
   }
 }
 
@@ -50,6 +56,8 @@ class buildMapView extends React.Component {
         this.resetGrid = this.resetGrid.bind(this);
         this.resetGrid2 = this.resetGrid2.bind(this);
         this.resetGrid3 = this.resetGrid3.bind(this);
+        this.resetGrid4 = this.resetGrid4.bind(this);
+
 
 
         const initializeGrid = () => {
@@ -122,6 +130,23 @@ class buildMapView extends React.Component {
           let container = new Container();
           this.state.grid.array.push(container);
           for (let j = 0; j < 18; j++){
+            var square = new Square();
+            this.state.grid.array[i].array.push(square);
+          }
+        }
+        this.setState(this.state.grid);
+
+
+      }
+      resetGrid4(event){
+        var val = event.target.value;
+
+        this.state.grid = new Container();
+  
+        for (let i = 0; i < val; i++) {
+          let container = new Container();
+          this.state.grid.array.push(container);
+          for (let j = 0; j < val; j++){
             var square = new Square();
             this.state.grid.array[i].array.push(square);
           }
@@ -257,9 +282,8 @@ class buildMapView extends React.Component {
 
                   <Grid item>  
                                   
-                    <Button variant="contained" color="secondary" onClick={this.submitMap}>
-                        Submit
-                    </Button>
+
+                    {/*
                     <Button variant="contained" color="primary" onClick={this.resetGrid}>
                         10x10
                     </Button>
@@ -269,20 +293,15 @@ class buildMapView extends React.Component {
                     <Button variant="contained" color="primary" onClick={this.resetGrid3}>
                         18x18
                     </Button>
-                    <table class="flex-row">
-                      <div class="flex-row"> 
-                          {
-                            this.state.grid.array.map((row, index) => (
-                              <div key={index} id="row">
-                                {row.array.map( (cellContent,colIndex) => 
-                                  <div key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></div>)}
-                              </div>
-                            ))
-                          }
-                      </div>
-                    </table>
-                 </Grid>
-                 <Grid>
+                    */}
+                    <InputLabel id="label">Grid Size</InputLabel>
+                    <Select onChange={this.resetGrid4} labelId="label" id="select" value="10">
+                      <MenuItem value="10">10x10</MenuItem>
+                      <MenuItem value="15">15x15</MenuItem>
+                      <MenuItem value="18">18x18</MenuItem>
+                    </Select>
+
+
                     <Grid item xs={12}
                      direction="row"   
                     >
@@ -304,7 +323,27 @@ class buildMapView extends React.Component {
                         <Button variant="contained" color="primary" onClick={this.changeToStairs} disabled={this.state.disabledButtons[5]}>
                             Stairs
                         </Button>
+                        <Button variant="contained" color="secondary" onClick={this.submitMap}>
+                        Submit
+                    </Button>
                     </Grid>
+
+
+                    <table class="flex-row">
+                      <div class="flex-row"> 
+                          {
+                            this.state.grid.array.map((row, index) => (
+                              <div key={index} id="row">
+                                {row.array.map( (cellContent,colIndex) => 
+                                  <div key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></div>)}
+                              </div>
+                            ))
+                          }
+                      </div>
+                    </table>
+                 </Grid>
+                 <Grid>
+                  {/*
                     <Grid>
                         <br>
                         </br>
@@ -319,6 +358,7 @@ class buildMapView extends React.Component {
                         }
                         </table>
                     </Grid>
+                      */}
                   </Grid>
                   
 
