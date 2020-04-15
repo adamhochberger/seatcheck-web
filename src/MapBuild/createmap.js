@@ -269,15 +269,17 @@ class buildMapView extends React.Component {
                     <Button variant="contained" color="primary" onClick={this.resetGrid3}>
                         18x18
                     </Button>
-                    <table>
-                      {
-                        this.state.grid.array.map((row, index) => (
-                          <tr key={index} id="row">
-                            {row.array.map( (cellContent,colIndex) => 
-                              <td key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></td>)}
-                          </tr>
-                        ))
-                      }
+                    <table class="flex-row">
+                      <div class="flex-row"> 
+                          {
+                            this.state.grid.array.map((row, index) => (
+                              <div key={index} id="row">
+                                {row.array.map( (cellContent,colIndex) => 
+                                  <div key={colIndex} onClick={this.setPoint} id={colIndex} className={index} img={cellContent.type} ></div>)}
+                              </div>
+                            ))
+                          }
+                      </div>
                     </table>
                  </Grid>
                  <Grid>
