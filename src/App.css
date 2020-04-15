@@ -1,3 +1,13 @@
+.grid-contain{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+
+}
+.flex-row{
+  display: flex;
+
+}
 [img="O"]{
   background-image: url("assets/square2.png");
   width: 64px;
@@ -17,8 +27,8 @@
 }
 [img="w"]{
   background-image: url("assets/brick2.png");
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
 }
 [img="t"]{
   background-image: url("assets/table2.png");
@@ -27,13 +37,13 @@
 }
 [img="e"]{
   background-image: url("assets/elevator2.png");
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
 }
 [img="s"]{
   background-image: url("assets/stair2.png");
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
 }
 .App {
     text-align: center;

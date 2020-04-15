@@ -115,7 +115,6 @@ class ViewMap extends React.Component {
               this.setState({peopleSeated: temp});
               //Update Firebase grid
               let setDoc = firebase.firestore().collection('data').doc(this.state.code).update(JSON.parse( JSON.stringify(this.state.grid)));
-              console.log("saves Grid")
           }
           })
           .catch(err => {
@@ -171,7 +170,6 @@ class ViewMap extends React.Component {
 
         this.state.peopleSeated = this.state.grid.array[row].array[col].users;
         this.setState(this.state.peopleSeated);
-        console.log("On Display", this.state.totalMembers);
 
       }
       //Sends data from parent to child
@@ -252,15 +250,19 @@ class ViewMap extends React.Component {
                       </Grid>
                       <Grid item>
 
-                        <table>
-                          {
-                            this.state.grid.array.map((row, index) => (
-                              <tr key={index} id="row">
-                                {row.array.map( (cellContent,colIndex) => 
-                                  <td key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></td>)}
-                              </tr>
-                            ))
-                          }
+                        <table class="flex-row">
+                          <div class="flex-row">
+                              {
+                                this.state.grid.array.map((row, index) => (
+                                  <div key={index} id="row">
+                                    {row.array.map( (cellContent,colIndex) => 
+                                      <div key={colIndex} onClick={this.displayFriendsOnSelect} id={colIndex} className={index} img={cellContent.type} ></div>)}
+                                  </div>
+                                ))
+                              }
+
+                          </div>
+ 
                         </table>
                     </Grid>
                     <Grid item>

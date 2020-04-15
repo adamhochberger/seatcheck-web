@@ -31,7 +31,6 @@ export default class MyFilteringComponent extends React.Component {
     }
 
     showFriendLocation(event){
-      console.log(this.state.items);
 
       if(this.props.grid == null){
         return

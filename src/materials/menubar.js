@@ -168,8 +168,7 @@ export default function Dashboard() {
     var temp = firebase.auth().currentUser;
     if (temp) {
         //this.setState({ user });
-        console.log("From navBar")
-        console.log(temp);
+
         //this.props.sendUser(user);
         //this.setState({loggedIn:true});
         setLoggedIn(true);
